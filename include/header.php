@@ -79,7 +79,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <?php endif ?>
         </ul>
 
-        <p class="test">Utilisateur : <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b><p>
+        <p class="bienvenue">Utilisateur : <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b><p>
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">

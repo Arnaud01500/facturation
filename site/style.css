@@ -10,17 +10,6 @@ body{
     align-items: center;
     padding-top: 200px;
 }
-/* Message de validation */
-.validMessage{
-    position:fixed;
-    top: 100px;
-}
-
-/* Section saisie */
-.sectionsaisie{
-    display:flex;
-}
-/* formulaire */
 /* Erreur saisie*/
 label.error {
     color: rgb(255, 113, 113);
@@ -34,11 +23,7 @@ input.error {
     font-weight: 300;
     color: rgb(255, 113, 113);
 }
-/* Mise en page des modals*/
-.buttons {
-    clear: both;
-    margin-top: 10px;
-  }
-.test{
-    color:white;
+/* Message utilisateur */
+.bienvenue{
+    color: #fff;
 }
