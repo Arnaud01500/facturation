@@ -52,7 +52,7 @@ if(!preg_match("/^[0-9]+$/",$quantity))
 
 if(empty($errors)){
 
-    $query = "INSERT INTO `orders` (name, forname, phone, address, zipcode, town, reference, quantity) SELECT ('$name', '$forname', '$email_address', '$phone', '$address', '$zipcode', '$town', id AS reference, quantity)";
+    $query = "INSERT INTO `orders` (name, forname, phone, address, zipcode, town, reference, quantity) VALUE ('$name', '$forname', '$email_address', '$phone', '$address', '$zipcode', '$town', id AS reference, quantity FROM products WHERE )";
     $result = mysqli_query($link, $query);
 
     header('Location: ../site/enregistrement.php');
