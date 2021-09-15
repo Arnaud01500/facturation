@@ -47,8 +47,8 @@ $town = $_GET['town'];
                                     <div class="form-block">
                                       <div class="row">
                                               <div class="col-12 col-lg-6">
-                                                  <label class="contact--box_label contact--box_labelwhite" for="reference">Référence : </label>
-                                                  <input type="text" id="reference" name="reference" placeholder="Saisir la référence" required class="form-control">
+                                                  <label class="contact--box_label contact--box_labelwhite" for="ref_product">Référence : </label>
+                                                  <input type="text" id="ref_product" name="ref_product" placeholder="Saisir la référence" required class="form-control">
                                               </div>
                                               <div class="col-12 col-lg-6">
                                                   <label class="contact--box_label contact--box_labelwhite" for="quantity">Quantité : </label>

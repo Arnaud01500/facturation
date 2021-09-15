@@ -3,6 +3,9 @@ include('../include/header.php');
 ?>
 <?php if ($_SESSION['role'] == 'admin') : ?>
 
+    <?php elseif ($_SESSION['role'] == 'guest') : ?>
+
+
 <body>
 
     <script type="text/javascript">
@@ -17,7 +20,7 @@ include('../include/header.php');
             $(function() {
                 $.ajax({
                     type: 'GET', // GET pour récupérer les données | POST pour récupérer les données
-                    url: '../tableau_produit/data.php',
+                    url: '../tableau_historique_commandes_client/data.php',
                     success: function(data) {
 
                         var arrayData = JSON.parse(data);
@@ -33,7 +36,7 @@ include('../include/header.php');
 
                             // HTML à construire
 
-                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.ref_product + "</td><td>" + data.category + "</td><td>" + data.designation + "</td><td>" + data.price + "</td><td><button data-id='" + data.id + "' data-ref_product='" + data.ref_product + "' data-category='" + data.category + "' data-designation='" + data.designation + "' data-price='" + data.price + "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
+                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.forname + "</td><td>" + data.phone + "</td><td>" + data.address + "</td><td>" + data.zipcode + "</td><td>" + data.town + "</td><td>" + data.reference + "</td><td>" + data.quantity + "</td><td>" + data.time + "</td><td><button data-id='" + data.id + "' data-name='" + data.name + "' data-forname='" + data.forname + "' data-phone='" + data.phone + "' data-address='" + data.address + "' data-zipcode='" + data.zipcode + "' data-town='" + data.town + "' data-reference='" + data.reference + "' data-quantity='" + data.quantity + "' data-time='" + data.time +  "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
 
 
                         });
@@ -59,12 +62,17 @@ include('../include/header.php');
                 $('.editionModal').modal({
                     keyboard: false
                 })
-
-                $('#ref_product').val($(this).data('ref_product'));
-                $('#category').val($(this).data('category'));
-                $('#designation').val($(this).data('designation'));
-                $('#price').val($(this).data('price'));
+                $('#name').val($(this).data('name'));
+                $('#forname').val($(this).data('forname'));
+                $('#phone').val($(this).data('phone'));
+                $('#address').val($(this).data('address'));
+                $('#zipcode').val($(this).data('zipcode'));
+                $('#town').val($(this).data('town'));
+                $('#reference').val($(this).data('reference'));
+                $('#quantity').val($(this).data('quantity'));
+                $('#time').val($(this).data('time'));
                 $('#id_r').val($(this).data('id'));
+
 
             });
 
@@ -82,7 +90,7 @@ include('../include/header.php');
 
                 $.ajax({
                     type: "POST",
-                    url: '../tableau_produit/edit.php',
+                    url: '../tableau_historique_commandes_client/edit.php',
                     data: form.serialize(), // serializes the form's elements.
                     success: function(data) {
                         console.log(data); // show response from the php script.
@@ -108,7 +116,7 @@ include('../include/header.php');
 
                 $.ajax({
                     type: "POST",
-                    url: '../tableau_produit/delete.php',
+                    url: '../tableau_historique_commandes_client/delete.php',
                     data: {
                         id_r: id_r
                     },
@@ -136,11 +144,15 @@ include('../include/header.php');
                     keyboard: false
                 })
 
-                $('#ref_product').val('');
-                $('#category').val('');
-                $('#designation').val('');
-                $('#price').val('');
-                $('#id_r').val('');
+                $('#name').val('');
+                $('#forname').val('');
+                $('#phone').val('');
+                $('#address').val('');
+                $('#zipcode').val('');
+                $('#town').val('');
+                $('#referene').val('');
+                $('#quantity').val('');
+                $('#time').val('');
 
                 e.preventDefault(); // avoid to execute the actual submit of the form.
 
@@ -159,7 +171,7 @@ include('../include/header.php');
 
                 $.ajax({
                     type: "POST",
-                    url: '../tableau_produit/delete.php',
+                    url: '../tableau_historique_commandes_client/delete.php',
                     data: {
                         id_r: id_r
                     },
@@ -174,28 +186,22 @@ include('../include/header.php');
 
             });
 
+            $(".pdfBtn").click(function(e) {
 
+            // alert('toto'); On vérifie si on passe bien dans l'event click
 
-            $(".sendBtn").click(function(e) {
-
-
-
-                        // alert('toto'); On vérifie si on passe bien dans l'event click
-
-                        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-                        window.location.replace('enregistrement_commande.php?name='+$('#name').val()+'&forname='+$('#forname').val()+'&phone='+$('#phone').val()+'&address='+$('#address').val()+'&zipcode='+$('#zipcode').val()+'&town='+$('#town').val());
+            e.preventDefault(); // avoid to execute the actual submit of the form.
 
 
 
-                        });
 
 
+            });
 
 
             // FIN Tableau fait à la main
 
-        });
+    });
     </script>
 
 
@@ -211,11 +217,16 @@ include('../include/header.php');
             <table id="manuel" class="table table-hover table-dark" style="width:100%;margin-top:20px;">
                 <thead class="thead-dark">
                     <tr>
-                        <th>ID</th>
-                        <th>Référence produit</th>
-                        <th>Catégorie</th>
-                        <th>Désignation</th>
-                        <th>Prix</th>
+                        <th>Numéro de commande</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Téléphone</th>
+                        <th>Adresse</th>
+                        <th>Code postal</th>
+                        <th>Ville</th>
+                        <th>Référence</th>
+                        <th>Quantité</th>
+                        <th>Date & Heure</th>
                     </tr>
                 </thead>
                 <tbody class="tab">
@@ -235,36 +246,9 @@ include('../include/header.php');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Edition</p>
+                            <p>Générer un document</p>
                             <form id="formEdition">
                                 <div class="form-group">
-                                    <label for="name">Nom</label>
-                                    <input type="text" class="form-control" id="name" name="name" aria-describedby="nh" placeholder="Le nom que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info nom</small>
-
-                                    <label for="forname">Prénom</label>
-                                    <input type="text" class="form-control" id="forname" name="forname" aria-describedby="nh" placeholder="Le prénom que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info prénom</small>
-
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="L'adresse email que vous souhaitez modifier">
-                                    <small id="emailHelp" class="form-text text-muted">Info email</small>
-
-                                    <label for="phone">Téléphone</label>
-                                    <input type="text" class="form-control" id="phone" name="phone" aria-describedby="nh" placeholder="Le numéro de téléphone que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info téléphone</small>
-
-                                    <label for="address">Adresse</label>
-                                    <input type="text" class="form-control" id="address" name="address" aria-describedby="nh" placeholder="L'adresse que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info adresse</small>
-
-                                    <label for="zipcode">Code postal</label>
-                                    <input type="text" class="form-control" id="zipcode" name="zipcode" aria-describedby="ph" placeholder="Le code postal que vous souhaitez modifier">
-                                    <small id="ph" class="form-text text-muted">Info code postal</small>
-
-                                    <label for="town">Ville</label>
-                                    <input type="text" class="form-control" id="town" name="town" aria-describedby="nh" placeholder="La ville que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info email</small>
 
                                     <input id="id_r" name="id_r" type="hidden" value="">
                                 </div>
@@ -272,10 +256,7 @@ include('../include/header.php');
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="submitBtn btn btn-success">Valider</button>
-                            <button type="submit" class="addBtn btn btn-info">Enregistrer</button>
-                            <button type="button" class="deleteBtn btn btn-warning">Supprimer</button>
-                            <button type="button" class="sendBtn btn btn-primary">Ajouter</button>
+                            <button type="submit" class="pdfBtn btn btn-success">Générer un PDF</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         </div>
                     </div>
@@ -287,19 +268,4 @@ include('../include/header.php');
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     </body>
-    <?php elseif ($_SESSION['role'] == 'guest') : ?>
-  <?php
-// Initialize the session
-session_start();
- 
-// Unset all of the session variables
-$_SESSION = array();
- 
-// Destroy the session.
-session_destroy();
- 
-// Redirect to login page
-header("location: ../login.php");
-exit;
-?>
-<?php endif ?> 
+    <?php endif ?> 
