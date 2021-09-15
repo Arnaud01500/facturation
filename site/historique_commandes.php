@@ -33,7 +33,7 @@ include('../include/header.php');
 
                             // HTML à construire
 
-                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.forname + "</td><td>" + data.phone + "</td><td>" + data.address + "</td><td>" + data.zipcode + "</td><td>" + data.town + "</td><td>" + data.ref_product + "</td><td>" + data.quantity + "</td><td>" + data.time + "</td><td><button data-id='" + data.id + "' data-name='" + data.name + "' data-forname='" + data.forname + "' data-phone='" + data.phone + "' data-address='" + data.address + "' data-zipcode='" + data.zipcode + "' data-town='" + data.town + "' data-reference='" + data.ref_product + "' data-quantity='" + data.quantity + "' data-time='" + data.time +  "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
+                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.ref_order + "</td><td>" + data.name + "</td><td>" + data.forname + "</td><td>" + data.phone + "</td><td>" + data.address + "</td><td>" + data.zipcode + "</td><td>" + data.town + "</td><td>" + data.ref_product + "</td><td>" + data.quantity + "</td><td>" + data.time + "</td><td><button data-id='" + data.id + "' data-ref_order='" + data.ref_order + "' data-name='" + data.name + "' data-forname='" + data.forname + "' data-phone='" + data.phone + "' data-address='" + data.address + "' data-zipcode='" + data.zipcode + "' data-town='" + data.town + "' data-reference='" + data.ref_product + "' data-quantity='" + data.quantity + "' data-time='" + data.time +  "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
 
 
                         });
@@ -254,6 +254,7 @@ include('../include/header.php');
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="pdfBtn btn btn-success">Générer un PDF</button>
+                            <button type="button" class="deleteBtn btn btn-warning">Supprimer</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         </div>
                     </div>

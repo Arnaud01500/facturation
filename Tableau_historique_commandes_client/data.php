@@ -1,11 +1,13 @@
 <?php
-
+session_start();
 
 include('../config.php');
-
+$username = $_SESSION["username"];
 //Traitement des données
-$sql = "SELECT id, name, forname, phone, address, zipcode, town, ref_product, quantity, time ,username FROM orders, users WHERE username=";
+$sql = "SELECT id, ref_order, name, forname, phone, address, zipcode, town, ref_product, quantity, time, username FROM orders, users WHERE username = $username";
 $result = $link->query($sql);
+
+
 
 if ($result->num_rows > 0) {
     // on boucle sur les résultats de la requête pour alimenter le tableau $array

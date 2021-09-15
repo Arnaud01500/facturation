@@ -36,7 +36,7 @@ include('../include/header.php');
 
                             // HTML à construire
 
-                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.forname + "</td><td>" + data.phone + "</td><td>" + data.address + "</td><td>" + data.zipcode + "</td><td>" + data.town + "</td><td>" + data.reference + "</td><td>" + data.quantity + "</td><td>" + data.time + "</td><td><button data-id='" + data.id + "' data-name='" + data.name + "' data-forname='" + data.forname + "' data-phone='" + data.phone + "' data-address='" + data.address + "' data-zipcode='" + data.zipcode + "' data-town='" + data.town + "' data-reference='" + data.reference + "' data-quantity='" + data.quantity + "' data-time='" + data.time +  "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
+                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.ref_order + "</td><td>" + data.name + "</td><td>" + data.forname + "</td><td>" + data.phone + "</td><td>" + data.address + "</td><td>" + data.zipcode + "</td><td>" + data.town + "</td><td>" + data.ref_product + "</td><td>" + data.quantity + "</td><td>" + data.time + "</td><td>" + data.username + "</td><td><button data-id='" + data.id + "' data-ref_order='" + data.ref_order + "' data-name='" + data.name + "' data-forname='" + data.forname + "' data-phone='" + data.phone + "' data-address='" + data.address + "' data-zipcode='" + data.zipcode + "' data-town='" + data.town + "' data-ref_product='" + data.ref_product + "' data-quantity='" + data.quantity + "' data-time='" + data.time +  "' data-username='" + data.username +  "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
 
 
                         });
@@ -62,15 +62,18 @@ include('../include/header.php');
                 $('.editionModal').modal({
                     keyboard: false
                 })
+
+                $('#ref_order').val($(this).data('ref_order'));
                 $('#name').val($(this).data('name'));
                 $('#forname').val($(this).data('forname'));
                 $('#phone').val($(this).data('phone'));
                 $('#address').val($(this).data('address'));
                 $('#zipcode').val($(this).data('zipcode'));
                 $('#town').val($(this).data('town'));
-                $('#reference').val($(this).data('reference'));
+                $('#ref_product').val($(this).data('ref_product'));
                 $('#quantity').val($(this).data('quantity'));
                 $('#time').val($(this).data('time'));
+                $('#username').val($(this).data('username'));
                 $('#id_r').val($(this).data('id'));
 
 
@@ -144,15 +147,17 @@ include('../include/header.php');
                     keyboard: false
                 })
 
+                $('#ref_order').val('');
                 $('#name').val('');
                 $('#forname').val('');
                 $('#phone').val('');
                 $('#address').val('');
                 $('#zipcode').val('');
                 $('#town').val('');
-                $('#referene').val('');
+                $('#ref_product').val('');
                 $('#quantity').val('');
                 $('#time').val('');
+                $('#username').val('');
 
                 e.preventDefault(); // avoid to execute the actual submit of the form.
 

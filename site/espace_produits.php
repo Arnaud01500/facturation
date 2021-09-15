@@ -235,36 +235,29 @@ include('../include/header.php');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Edition</p>
+                            <p>Edition produit</p>
                             <form id="formEdition">
                                 <div class="form-group">
-                                    <label for="name">Nom</label>
-                                    <input type="text" class="form-control" id="name" name="name" aria-describedby="nh" placeholder="Le nom que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info nom</small>
 
-                                    <label for="forname">Prénom</label>
-                                    <input type="text" class="form-control" id="forname" name="forname" aria-describedby="nh" placeholder="Le prénom que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info prénom</small>
+                                    <label for="ref_product">Référence</label>
+                                    <input type="text" class="form-control" id="ref_product" name="ref_product" aria-describedby="nh" placeholder="La référence que vous souhaitez modifier">
+                                    <small id="nh" class="form-text text-muted">Info référence</small>
 
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="L'adresse email que vous souhaitez modifier">
-                                    <small id="emailHelp" class="form-text text-muted">Info email</small>
+                                    <label for="category">Catégorie</label>
+                                    <select class="custom-select" id="category" name="category" required>
+                                        <option value="Vélo">Vélo</option>
+                                        <option value="Pièce">Pièce</option>
+                                        <option value="Accessoire">Accessoire</option>
+                                    </select>
+                                    <small id="nh" class="form-text text-muted">Info catégorie</small>
 
-                                    <label for="phone">Téléphone</label>
-                                    <input type="text" class="form-control" id="phone" name="phone" aria-describedby="nh" placeholder="Le numéro de téléphone que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info téléphone</small>
+                                    <label for="designation">Désignation</label>
+                                    <input type="text" class="form-control" id="designation" name="designation" aria-describedby="emailHelp" placeholder="La désignation que vous souhaitez modifier">
+                                    <small id="emailHelp" class="form-text text-muted">Info désignation</small>
 
-                                    <label for="address">Adresse</label>
-                                    <input type="text" class="form-control" id="address" name="address" aria-describedby="nh" placeholder="L'adresse que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info adresse</small>
-
-                                    <label for="zipcode">Code postal</label>
-                                    <input type="text" class="form-control" id="zipcode" name="zipcode" aria-describedby="ph" placeholder="Le code postal que vous souhaitez modifier">
-                                    <small id="ph" class="form-text text-muted">Info code postal</small>
-
-                                    <label for="town">Ville</label>
-                                    <input type="text" class="form-control" id="town" name="town" aria-describedby="nh" placeholder="La ville que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info email</small>
+                                    <label for="price">Prix</label>
+                                    <input type="text" class="form-control" id="price" name="price" aria-describedby="nh" placeholder="Le prix que vous souhaitez modifier">
+                                    <small id="nh" class="form-text text-muted">Info prix</small>
 
                                     <input id="id_r" name="id_r" type="hidden" value="">
                                 </div>
@@ -275,7 +268,6 @@ include('../include/header.php');
                             <button type="submit" class="submitBtn btn btn-success">Valider</button>
                             <button type="submit" class="addBtn btn btn-info">Enregistrer</button>
                             <button type="button" class="deleteBtn btn btn-warning">Supprimer</button>
-                            <button type="button" class="sendBtn btn btn-primary">Ajouter</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         </div>
                     </div>

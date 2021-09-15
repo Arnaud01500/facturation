@@ -44,9 +44,7 @@ if(!preg_match("/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/",$phone))
 }
 
 
-session_start();
 if(empty($errors)){
-    $_SESSION['success'] = 1;
 
     $query = "INSERT INTO `customers` (name, forname, email, phone, address, zipcode, town) VALUES ('$name', '$forname', '$email_address', '$phone', '$address', '$zipcode', '$town')";
     $result = mysqli_query($link, $query);

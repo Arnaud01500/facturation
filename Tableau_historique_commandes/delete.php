@@ -9,5 +9,5 @@ $id = json_decode($idTemp);
 
 
 //Traitement des données
-$query = "DELETE FROM customers WHERE id='$id'";
+$query = "DELETE FROM orders WHERE id='$id'";
 $result = $link->query($query);

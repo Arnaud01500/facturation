@@ -4,8 +4,9 @@
 include('../config.php');
 
 //Traitement des données
-$sql = "SELECT id, name, forname, phone, address, zipcode, town, ref_product, quantity, time FROM orders";
+$sql = "SELECT ref_order, name, forname, phone, address, zipcode, town, ref_product, quantity, time FROM orders";
 $result = $link->query($sql);
+
 
 if ($result->num_rows > 0) {
     // on boucle sur les résultats de la requête pour alimenter le tableau $array
