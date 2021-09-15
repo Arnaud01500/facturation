@@ -4,7 +4,7 @@
 include('../config.php');
 
 //Traitement des données
-$sql = "SELECT id.orders, name, forname, phone, address, zipcode, town, reference, quantity, time FROM customers, products WHERE ";
+$sql = "SELECT id, name, forname, phone, address, zipcode, town, ref_product, quantity, time ,username FROM orders, users WHERE username=";
 $result = $link->query($sql);
 
 if ($result->num_rows > 0) {
