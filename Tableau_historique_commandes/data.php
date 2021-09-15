@@ -4,7 +4,7 @@
 include('../config.php');
 
 //Traitement des données
-$sql = "SELECT id, ref_product, category, designation, price FROM products";
+$sql = "SELECT id, name, forname, phone, address, zipcode, town, ref_product, quantity, time FROM orders";
 $result = $link->query($sql);
 
 if ($result->num_rows > 0) {

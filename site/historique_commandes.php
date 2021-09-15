@@ -17,7 +17,7 @@ include('../include/header.php');
             $(function() {
                 $.ajax({
                     type: 'GET', // GET pour récupérer les données | POST pour récupérer les données
-                    url: '../tableau_historique/data.php',
+                    url: '../tableau_historique_commandes/data.php',
                     success: function(data) {
 
                         var arrayData = JSON.parse(data);
@@ -33,7 +33,7 @@ include('../include/header.php');
 
                             // HTML à construire
 
-                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.forname + "</td><td>" + data.phone + "</td><td>" + data.phone + "</td><td>" + data.address + "</td><td>" + data.zipcode + "</td><td>" + data.town + "</td><td>" + data.reference + "</td><td>" + data.quantity + "</td><td>" + data.time + "</td><td><button data-id='" + data.id + "' data-name='" + data.name + "' data-forname='" + data.forname + "' data-phone='" + data.phone + "' data-address='" + data.address + "' data-zipcode='" + data.zipcode + "' data-town='" + data.town + "' data-reference='" + data.reference + "' data-quantity='" + data.quantity + "' data-time='" + data.time +  "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
+                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.forname + "</td><td>" + data.phone + "</td><td>" + data.address + "</td><td>" + data.zipcode + "</td><td>" + data.town + "</td><td>" + data.ref_product + "</td><td>" + data.quantity + "</td><td>" + data.time + "</td><td><button data-id='" + data.id + "' data-name='" + data.name + "' data-forname='" + data.forname + "' data-phone='" + data.phone + "' data-address='" + data.address + "' data-zipcode='" + data.zipcode + "' data-town='" + data.town + "' data-reference='" + data.ref_product + "' data-quantity='" + data.quantity + "' data-time='" + data.time +  "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
 
 
                         });
@@ -65,7 +65,7 @@ include('../include/header.php');
                 $('#address').val($(this).data('address'));
                 $('#zipcode').val($(this).data('zipcode'));
                 $('#town').val($(this).data('town'));
-                $('#reference').val($(this).data('reference'));
+                $('#ref_product').val($(this).data('ref_product'));
                 $('#quantity').val($(this).data('quantity'));
                 $('#time').val($(this).data('time'));
                 $('#id_r').val($(this).data('id'));
@@ -87,7 +87,7 @@ include('../include/header.php');
 
                 $.ajax({
                     type: "POST",
-                    url: '../tableau_historique/edit.php',
+                    url: '../tableau_historique_commandes/edit.php',
                     data: form.serialize(), // serializes the form's elements.
                     success: function(data) {
                         console.log(data); // show response from the php script.
@@ -113,7 +113,7 @@ include('../include/header.php');
 
                 $.ajax({
                     type: "POST",
-                    url: '../tableau_historique/delete.php',
+                    url: '../tableau_historique_commandes/delete.php',
                     data: {
                         id_r: id_r
                     },
@@ -147,7 +147,7 @@ include('../include/header.php');
                 $('#address').val('');
                 $('#zipcode').val('');
                 $('#town').val('');
-                $('#referene').val('');
+                $('#ref_product').val('');
                 $('#quantity').val('');
                 $('#time').val('');
 
@@ -168,7 +168,7 @@ include('../include/header.php');
 
                 $.ajax({
                     type: "POST",
-                    url: '../tableau_historique/delete.php',
+                    url: '../tableau_historique_commandes/delete.php',
                     data: {
                         id_r: id_r
                     },
@@ -183,9 +183,22 @@ include('../include/header.php');
 
             });
 
+            $(".pdfBtn").click(function(e) {
+
+            // alert('toto'); On vérifie si on passe bien dans l'event click
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+
+
+
+
+            });
+
+
             // FIN Tableau fait à la main
 
-        });
+    });
     </script>
 
 
@@ -230,23 +243,9 @@ include('../include/header.php');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Edition</p>
+                            <p>Générer un document</p>
                             <form id="formEdition">
                                 <div class="form-group">
-                                    <label for="category">Catégorie</label>
-                                        <select class="custom-select" id="category" name="category" required>
-                                        <option value="Vélo">Vélo</option>
-                                        <option value="Pièce">Pièce</option>
-                                        <option value="Accessoire">Accessoire</option>
-                                        </select>
-
-                                    <label for="designation">Libellé du produit</label>
-                                    <input type="text" class="form-control" id="designation" name="designation" aria-describedby="nh" placeholder="La désignation que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info prénom</small>
-
-                                    <label for="price">Prix</label>
-                                    <input type="text" class="form-control" id="price" name="price" aria-describedby="nh" placeholder="Le prix que vous souhaitez modi">
-                                    <small id="nh" class="form-text text-muted">Info prix</small>
 
                                     <input id="id_r" name="id_r" type="hidden" value="">
                                 </div>
@@ -254,9 +253,7 @@ include('../include/header.php');
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="submitBtn btn btn-success">Valider</button>
-                            <button type="submit" class="addBtn btn btn-info">Enregistrer</button>
-                            <button type="button" class="deleteBtn btn btn-warning">Supprimer</button>
+                            <button type="submit" class="pdfBtn btn btn-success">Générer un PDF</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         </div>
                     </div>
