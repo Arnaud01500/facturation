@@ -52,14 +52,10 @@ if(!preg_match("/^[0-9]+$/",$quantity))
 
 if(empty($errors)){
 
-    $query = "INSERT INTO `orders` (name, forname, phone, address, zipcode, town, reference, quantity) SELECT ('$name', '$forname', '$email_address', '$phone', '$address', '$zipcode', '$town', id AS reference, quantity)";
+    $query = "INSERT INTO `orders` (name, forname, phone, address, zipcode, town, reference, quantity) VALUE ('$name', '$forname', '$phone', '$address', '$zipcode', '$town', '$reference', '$quantity')";
     $result = mysqli_query($link, $query);
 
-    header('Location: ../site/enregistrement.php');
+    header('Location: ../site/historique_commandes.php');
+}else{
+    echo 'erreur';
 }
-"INSERT INTO orders 
-    (nom, sexe, date_naissance, race_id, espece_id)              
-    -- Je précise les colonnes puisque je ne donne pas une valeur pour toutes.
-SELECT  'Yoda', 'M', '2010-11-09', id AS race_id, espece_id     
-    -- Attention à l'ordre !
-FROM Race WHERE nom = 'Maine coon';"

@@ -73,7 +73,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 Espace client
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                    <li><a class="dropdown-item" href="../site/espace_commandes.php">Historique des commandes</a></li>
+                    <li><a class="dropdown-item" href="../site/historique_commandes.php">Historique des commandes</a></li>
                 </ul>
             </li>
             <?php endif ?>
