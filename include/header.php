@@ -37,7 +37,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
-        <?php if ($_SESSION['role'] == 'admin') : ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                 Client
@@ -63,20 +62,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 Commande
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                    <li><a class="dropdown-item" href="../site/enregistrement_commande.php">Saisir une commande</a></li>
                     <li><a class="dropdown-item" href="../site/historique_commandes.php">Historique des commandes</a></li>
                 </ul>
             </li>
             
-            <?php elseif ($_SESSION['role'] == 'guest') : ?>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                Espace client
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                    <li><a class="dropdown-item" href="../site/historique_commandes_client.php">Historique des commandes</a></li>
-                </ul>
-            </li>
-            <?php endif ?>
         </ul>
 
         <p class="bienvenue">Utilisateur : <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b><p>

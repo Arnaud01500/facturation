@@ -3,11 +3,11 @@
 include('../config.php');
 
 //var_dump($_POST);
-$idTemp = $_POST['id_r'];
+$idTemp = $_POST['ref_order_r'];
 
-$id = json_decode($idTemp);
+$ref_order = json_decode($idTemp);
 
 
 //Traitement des données
-$query = "DELETE FROM orders WHERE id='$id'";
+$query = "DELETE FROM orders WHERE ref_order='$ref_order'";
 $result = $link->query($query);

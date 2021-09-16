@@ -27,13 +27,13 @@ include('../include/header.php');
                         $.each(tabUSer, function(index, data) {
 
                             console.log('index :' + index);
-                            console.log(data.id); // log les ids
+                            console.log(data.ref_order); // log les ids
                             console.log(data.email); // log les emails ...
 
 
                             // HTML à construire
 
-                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.ref_order + "</td><td>" + data.name + "</td><td>" + data.forname + "</td><td>" + data.phone + "</td><td>" + data.address + "</td><td>" + data.zipcode + "</td><td>" + data.town + "</td><td>" + data.ref_product + "</td><td>" + data.quantity + "</td><td>" + data.time + "</td><td><button data-id='" + data.id + "' data-ref_order='" + data.ref_order + "' data-name='" + data.name + "' data-forname='" + data.forname + "' data-phone='" + data.phone + "' data-address='" + data.address + "' data-zipcode='" + data.zipcode + "' data-town='" + data.town + "' data-reference='" + data.ref_product + "' data-quantity='" + data.quantity + "' data-time='" + data.time +  "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
+                            $('.tab').append("<tr><td>" + data.ref_order + "</td><td>" + data.name + "</td><td>" + data.forname + "</td><td>" + data.phone + "</td><td>" + data.address + "</td><td>" + data.zipcode + "</td><td>" + data.town + "</td><td>" + data.ref_product + "</td><td>" + data.quantity + "</td><td>" + data.time + "</td><td><button data-ref_order='" + data.ref_order + "' data-ref_order='" + data.ref_order + "' data-name='" + data.name + "' data-forname='" + data.forname + "' data-phone='" + data.phone + "' data-address='" + data.address + "' data-zipcode='" + data.zipcode + "' data-town='" + data.town + "' data-reference='" + data.ref_product + "' data-quantity='" + data.quantity + "' data-time='" + data.time +  "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
 
 
                         });
@@ -68,7 +68,7 @@ include('../include/header.php');
                 $('#ref_product').val($(this).data('ref_product'));
                 $('#quantity').val($(this).data('quantity'));
                 $('#time').val($(this).data('time'));
-                $('#id_r').val($(this).data('id'));
+                $('#ref_order_r').val($(this).data('ref_order'));
 
 
             });
@@ -108,14 +108,14 @@ include('../include/header.php');
 
                 e.preventDefault(); // avoid to execute the actual submit of the form.
 
-                var id_r = $('#id_r').val();
+                var ref_order_r = $('#ref_order_r').val();
 
 
                 $.ajax({
                     type: "POST",
                     url: '../tableau_historique_commandes/delete.php',
                     data: {
-                        id_r: id_r
+                        ref_order_r: ref_order_r
                     },
                     success: function(data) {
                         console.log(data); // show response from the php script.
@@ -163,14 +163,14 @@ include('../include/header.php');
 
                 e.preventDefault(); // avoid to execute the actual submit of the form.
 
-                var id_r = $('#id_r').val();
+                var ref_order_r = $('#ref_order_r').val();
 
 
                 $.ajax({
                     type: "POST",
                     url: '../tableau_historique_commandes/delete.php',
                     data: {
-                        id_r: id_r
+                        ref_order_r: ref_order_r
                     },
                     success: function(data) {
                         console.log(data); // show response from the php script.
@@ -247,7 +247,7 @@ include('../include/header.php');
                             <form id="formEdition">
                                 <div class="form-group">
 
-                                    <input id="id_r" name="id_r" type="hidden" value="">
+                                    <input id="ref_order_r" name="ref_order_r" type="hidden" value="">
                                 </div>
 
                             </form>

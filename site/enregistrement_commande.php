@@ -1,13 +1,8 @@
 
 <?php
 include('../include/header.php');
-$name = $_GET['name'];
-$forname = $_GET['forname'];
-$phone = $_GET['phone'];
-$address = $_GET['address'];
-$zipcode = $_GET['zipcode'];
-$town = $_GET['town'];
 ?>
+
 <?php if ($_SESSION['role'] == 'admin') : ?>
 
 <body>
@@ -20,27 +15,27 @@ $town = $_GET['town'];
                         <div class="row">
                           <div class="col-12 col-lg-6">
                           <label class="contact--box_label contact--box_labelwhite" for="name">Nom : </label>
-                          <input type="text" id="name" name="name" placeholder="Nom du client" required class="form-control" value="<?php echo $name;?>">
+                          <input type="text" id="name" name="name" placeholder="Nom du client" required class="form-control">
                           </div>
                           <div class="col-12 col-lg-6">
                           <label class="contact--box_label contact--box_labelwhite" for="forname">Prénom : </label>
-                          <input type="text" id="forname" name="forname" placeholder="Prénom du client" required class="form-control" value="<?php echo $forname;?>">
+                          <input type="text" id="forname" name="forname" placeholder="Prénom du client" required class="form-control">
                           </div>
                           <div class="col-12 col-md-12">
                           <label class="contact--box_label contact--box_labelwhite" for="phone">Téléphone : </label>
-                          <input type="tel" id="phone" name="phone" placeholder="Numéro de téléphone du client" required class="form-control" value="<?php echo $phone;?>">
+                          <input type="tel" id="phone" name="phone" placeholder="Numéro de téléphone du client" required class="form-control">
                           </div>
                           <div class="col-12 col-md-12">
                           <label class="contact--box_label contact--box_labelwhite" for="address">Adresse : </label>
-                          <input type="text" id="address" name="address" placeholder="Adresse du client" required class="form-control" value="<?php echo $address;?>">
+                          <input type="text" id="address" name="address" placeholder="Adresse du client" required class="form-control">
                           </div>
                           <div class="col-12 col-md-12">
                           <label class="contact--box_label contact--box_labelwhite" for="zipcode">Code postal : </label>
-                          <input type="text" id="zipcode" name="zipcode" placeholder="Saisir le code postal du client" pattern="[0-9]{5}" required class="form-control" value="<?php echo $zipcode;?>">
+                          <input type="text" id="zipcode" name="zipcode" placeholder="Saisir le code postal du client" pattern="[0-9]{5}" required class="form-control">
                           </div>
                           <div class="col-12 col-md-12">
                           <label class="contact--box_label contact--box_labelwhite" for="town">Ville : </label>
-                          <input type="text" id="town" name="town" placeholder="Saisir la ville de résidence du client" required class="form-control" value="<?php echo $town;?>"><br>
+                          <input type="text" id="town" name="town" placeholder="Saisir la ville de résidence du client" required class="form-control"><br>
                           </div>
                           <div class="col-12 col-md-12">
                                 <div class="form-main">
