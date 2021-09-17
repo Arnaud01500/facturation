@@ -4,7 +4,7 @@
 include('../config.php');
 
 //Traitement des données
-$sql = "SELECT id, name, forname, email, phone, address, zipcode, town FROM customers";
+$sql = "SELECT customer_num, customer_name, customer_forname, customer_email, customer_phone, customer_address, customer_zipcode, customer_town FROM customers";
 $result = $link->query($sql);
 
 if ($result->num_rows > 0) {

@@ -48,7 +48,7 @@ session_start();
 if(empty($errors)){
     $_SESSION['success'] = 1;
 
-    $query = "INSERT INTO `customers` (name, forname, email, phone, address, zipcode, town) VALUES ('$name', '$forname', '$email', '$phone', '$address', '$zipcode', '$town')";
+    $query = "INSERT INTO `customers` (customer_name, customer_forname, customer_email, customer_phone, customer_address, customer_zipcode, customer_town) VALUES ('$name', '$forname', '$email', '$phone', '$address', '$zipcode', '$town')";
     $result = $link->query($query);
 
     header('Location: ../site/enregistrement_client.php');

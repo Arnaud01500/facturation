@@ -3,11 +3,11 @@
 include('../config.php');
 
 //var_dump($_POST);
-$idTemp = $_POST['id_r'];
+$idTemp = $_POST['customer_num_r'];
 
-$id = json_decode($idTemp);
+$customer_num = json_decode($idTemp);
 
 
 //Traitement des données
-$query = "DELETE FROM customers WHERE id='$id'";
+$query = "DELETE FROM customers WHERE customer_num='$customer_num'";
 $result = $link->query($query);

@@ -3,17 +3,16 @@
 include('../config.php');
 
 //var_dump($_POST);
-$id = $_POST['id_r'];
-$name = $_POST['name'];
-$forname = $_POST['forname'];
-$email_address = $_POST['email'];
-$phone = $_POST['phone'];
-$address = $_POST['address'];
-$zipcode = $_POST['zipcode'];
-$town = $_POST['town'];
+$customer_num = $_POST['customer_num_r'];
+$name = $_POST['customer_name'];
+$forname = $_POST['customer_forname'];
+$email_address = $_POST['customer_email'];
+$phone = $_POST['customer_phone'];
+$address = $_POST['customer_address'];
+$zipcode = $_POST['customer_zipcode'];
+$town = $_POST['customer_town'];
 
 //Traitement des données
-$query = "UPDATE customers SET name='$name', forname='$forname', email='$email_address', phone='$phone', address='$address', zipcode='$zipcode', town='$town' WHERE id='$id'";
+$query = "UPDATE customers SET customer_name='$name', customer_forname='$forname', customer_email='$email_address', customer_phone='$phone', customer_address='$address', customer_zipcode='$zipcode', customer_town='$town' WHERE customer_num='$customer_num'";
 $result = $link->query($query);
-
 echo json_encode(true);
