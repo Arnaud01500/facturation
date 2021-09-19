@@ -12,26 +12,21 @@ include('../include/header.php');
                   <div class="col12 col-md-6 contact--box_formulaire">
                     <div class="contact--box_text">
                       <div class="row">
-                      <div class="col-12 col-md-12">
-                        <label class="contact--box_label" for="category">Catégorie du produit : </label>
-                          <select class="custom-select" id="category" name="category" required>
-                            <option selected>Choisir</option>
-                            <option value="Vélo">Vélo</option>
-                            <option value="Pièce">Pièce</option>
-                            <option value="Accessoire">Accessoire</option>
-                          </select>
-                      </div>
+                      <div class="col-12 col-lg-6">
+                        <label class="contact--box_label" for="product_code">Référence du produit : </label>
+                        <input type="text" id="product_code" name="product_code" placeholder="Référence du produit" required class="form-control"><br>
+                        </div>
                         <div class="col-12 col-md-12">
-                        <label class="contact--box_label" for="designation">Désignation du produit : </label>
-                        <textarea name="designation" rows="10" cols="30" id="designation" placeholder="Désignation du produit" class="form-control"></textarea><br>
+                        <label class="contact--box_label" for="product_designation">Désignation du produit : </label>
+                        <textarea name="product_designation" rows="2" cols="30" id="product_designation" placeholder="Désignation du produit" class="form-control"></textarea><br>
                         </div>
                         <div class="col-12 col-lg-6">
-                        <label class="contact--box_label" for="price">Prix du produit : </label>
-                        <input type="text" id="price" name="price" placeholder="Prix du produit" required class="form-control"><br>
+                        <label class="contact--box_label" for="product_price">Prix du produit : </label>
+                        <input type="text" id="product_price" name="product_price" placeholder="Prix du produit" required class="form-control"><br>
                         </div>
                         <div class="col-12 col-lg-6">
-                        <label class="contact--box_label" for="ref_product">Référence du produit : </label>
-                        <input type="text" id="ref_product" name="ref_product" placeholder="Référence du produit" required class="form-control"><br>
+                        <label class="contact--box_label" for="product_qty">Quantité : </label>
+                        <input type="text" id="product_qty" name="product_qty" placeholder="Quantité à saisir" required class="form-control"><br>
                         </div>
                         <div class="col-12 col-md-12">
                         <input type="submit" name="formulaire" value="Ajouter" required class="btn btn-primary">

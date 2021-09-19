@@ -4,8 +4,9 @@
 include('../config.php');
 
 //Traitement des données
-$sql = "SELECT product_code, product_designation, product_price, product_quantity FROM products";
+$sql = "SELECT product_code, product_designation, product_price, product_qty FROM products";
 $result = $link->query($sql);
+
 
 if ($result->num_rows > 0) {
     // on boucle sur les résultats de la requête pour alimenter le tableau $array

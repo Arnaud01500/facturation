@@ -1,6 +1,12 @@
 <?php
 include('../include/header.php');
 ?>
+
+
+
+
+
+
 <?php if ($_SESSION['role'] == 'admin') : ?>
 <body>
     <form id="basic-form" action="../traitement/traitement_enregistrement_client.php" method="POST">

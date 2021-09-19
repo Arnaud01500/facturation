@@ -25,15 +25,12 @@ include('../include/header.php');
 
                         // Boucle jQuery sur le tableau de données tabUser
                         $.each(tabUSer, function(index, data) {
-
-                            console.log('index :' + index);
-                            console.log(data.id); // log les ids
-                            console.log(data.email); // log les emails ...
+                        console.log(data.product_code_r); // log les emails ...
 
 
                             // HTML à construire
 
-                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.ref_product + "</td><td>" + data.category + "</td><td>" + data.designation + "</td><td>" + data.price + "</td><td><button data-id='" + data.id + "' data-ref_product='" + data.ref_product + "' data-category='" + data.category + "' data-designation='" + data.designation + "' data-price='" + data.price + "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
+                            $('.tab').append("<tr><td>" + data.product_code + "</td><td>" + data.product_designation + "</td><td>" + data.product_price + "</td><td>" + data.product_qty + "</td><td><button data-product_code='" + data.product_code + "' data-product_designation='" + data.product_designation + "' data-product_price='" + data.product_price + "' data-product_qty='" + data.product_qty + "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
 
 
                         });
@@ -60,11 +57,10 @@ include('../include/header.php');
                     keyboard: false
                 })
 
-                $('#ref_product').val($(this).data('ref_product'));
-                $('#category').val($(this).data('category'));
-                $('#designation').val($(this).data('designation'));
-                $('#price').val($(this).data('price'));
-                $('#id_r').val($(this).data('id'));
+                $('#product_designation').val($(this).data('product_designation'));
+                $('#product_price').val($(this).data('product_price'));
+                $('#product_qty').val($(this).data('product_qty'));
+                $('#product_code_r').val($(this).data('product_code'));
 
             });
 
@@ -103,14 +99,14 @@ include('../include/header.php');
 
                 e.preventDefault(); // avoid to execute the actual submit of the form.
 
-                var id_r = $('#id_r').val();
+                var product_code_r = $('#product_code_r').val();
 
 
                 $.ajax({
                     type: "POST",
                     url: '../tableau_produit/delete.php',
                     data: {
-                        id_r: id_r
+                        product_code_r: product_code_r
                     },
                     success: function(data) {
                         console.log(data); // show response from the php script.
@@ -136,11 +132,10 @@ include('../include/header.php');
                     keyboard: false
                 })
 
-                $('#ref_product').val('');
-                $('#category').val('');
-                $('#designation').val('');
-                $('#price').val('');
-                $('#id_r').val('');
+                $('#product_designation').val('');
+                $('#product_price').val('');
+                $('#product_qty').val('');
+                $('#product_code_r').val('');
 
                 e.preventDefault(); // avoid to execute the actual submit of the form.
 
@@ -154,14 +149,14 @@ include('../include/header.php');
 
                 e.preventDefault(); // avoid to execute the actual submit of the form.
 
-                var id_r = $('#id_r').val();
+                var product_code_r = $('#product_code_r').val();
 
 
                 $.ajax({
                     type: "POST",
                     url: '../tableau_produit/delete.php',
                     data: {
-                        id_r: id_r
+                        product_code_r: product_code_r
                     },
                     success: function(data) {
                         console.log(data); // show response from the php script.
@@ -173,22 +168,6 @@ include('../include/header.php');
 
 
             });
-
-
-
-            $(".sendBtn").click(function(e) {
-
-
-
-                        // alert('toto'); On vérifie si on passe bien dans l'event click
-
-                        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-                        window.location.replace('enregistrement_commande.php?name='+$('#name').val()+'&forname='+$('#forname').val()+'&phone='+$('#phone').val()+'&address='+$('#address').val()+'&zipcode='+$('#zipcode').val()+'&town='+$('#town').val());
-
-
-
-                        });
 
 
 
@@ -239,27 +218,24 @@ include('../include/header.php');
                             <form id="formEdition">
                                 <div class="form-group">
 
-                                    <label for="ref_product">Référence</label>
-                                    <input type="text" class="form-control" id="ref_product" name="ref_product" aria-describedby="nh" placeholder="La référence que vous souhaitez modifier">
+                                    <label for="product_code">Référence</label>
+                                    <input type="text" class="form-control" id="product_code" name="product_code" aria-describedby="nh" placeholder="La référence que vous souhaitez modifier">
                                     <small id="nh" class="form-text text-muted">Info référence</small>
 
-                                    <label for="category">Catégorie</label>
-                                    <select class="custom-select" id="category" name="category" required>
-                                        <option value="Vélo">Vélo</option>
-                                        <option value="Pièce">Pièce</option>
-                                        <option value="Accessoire">Accessoire</option>
-                                    </select>
-                                    <small id="nh" class="form-text text-muted">Info catégorie</small>
+                                    <label for="product_designation">Désignation</label>
+                                    <input type="text" class="form-control" id="product_designation" name="product_designation" aria-describedby="nh" placeholder="La désignation que vous souhaitez modifier">
+                                    <small id="nh" class="form-text text-muted">Info désignation</small>
 
-                                    <label for="designation">Désignation</label>
-                                    <input type="text" class="form-control" id="designation" name="designation" aria-describedby="emailHelp" placeholder="La désignation que vous souhaitez modifier">
-                                    <small id="emailHelp" class="form-text text-muted">Info désignation</small>
-
-                                    <label for="price">Prix</label>
-                                    <input type="text" class="form-control" id="price" name="price" aria-describedby="nh" placeholder="Le prix que vous souhaitez modifier">
+                                    <label for="product_price">Prix</label>
+                                    <input type="text" class="form-control" id="product_price" name="product_price" aria-describedby="nh" placeholder="Le prix que vous souhaitez modifier">
                                     <small id="nh" class="form-text text-muted">Info prix</small>
 
-                                    <input id="id_r" name="id_r" type="hidden" value="">
+                                    <label for="product_qty">Stocks</label>
+                                    <input type="text" class="form-control" id="product_qty" name="product_qty" aria-describedby="nh" placeholder="Le stock que vous souhaitez modifier">
+                                    <small id="nh" class="form-text text-muted">Info stocks</small>
+
+
+                                    <input id="product_code_r" name="product_code_r" type="hidden" value="">
                                 </div>
 
                             </form>
