@@ -10,7 +10,6 @@ var cache = {}; /* tableau cache de tous les termes */
 var term = null; /* terme renseigné dans le champ input */
 var baseUrl = 'http://facturation/site/enregistrement_commande.php'; /* url du site */
 baseUrl = '';
-
 $(document).ready(function() {
 	/* name autocomplete */
 	$('#customer_name').autocomplete({
@@ -47,7 +46,7 @@ $(document).ready(function() {
 								return{
 									label: item.label,
 									value: item.value,
-									id: item.id,
+									customer_num: item.customer_num,
 								}
 							}));  /* envoit du résultat à source avec map() de jQuery (permet d'appliquer une fonction pour tous les éléments d'un tableau */
 						}
@@ -59,7 +58,10 @@ $(document).ready(function() {
 		
 		/* sélection depuis la liste des résultats (flèches ou clic) > ajout du résultat automatique et callback */
 		select: function(event, ui) {
-			$('form input[customer_name="customer_name-id"]').val(ui.item ? ui.item.id : ''); /* on récupère juste l'id qu'on stocke dans l'autre input */
+			$('form input[customer_name="customer_name-customer_num"]').val(ui.item ? ui.item.customer_num : ''); /* on récupère juste l'id qu'on stocke dans l'autre input */
+		},
+        select: function(event, ui) {
+			$('#customer_num').val(ui.item ? ui.item.customer_num : ''); /* On récupère le numéro client pour l'insérer dans l'input */
 		},
 		open: function() {
 			$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
@@ -69,6 +71,7 @@ $(document).ready(function() {
 		},
 	});
 });
+
 </script>
 
 
@@ -85,32 +88,48 @@ $(document).ready(function() {
                     <div class="col12 col-md-9 contact--box_formulaire">
                         <div class="row">
                           <div class="col-12 col-lg-6">
-
-
-
-
-
-                          <label class="contact--box_label contact--box_labelwhite" for="customer_name">Nom : </label>
+                          <label class="contact--box_label contact--box_labelwhite" for="customer_name">Identité du client : </label>
                           <span id="customer_name-container">
                           <input type="text" id="customer_name" name="customer_name" placeholder="Nom du client" required class="form-control">
                           </span>
                           <span id="loading" style="display:none;"><i class="fa fa-circle-o-notch fa-spin"></i></span>
                           <input type="hidden" name="customer_name-hidden">
-
-
-
-
-
-
                           </div>
                           <div class="col-12 col-lg-6">
-                          <label class="contact--box_label contact--box_labelwhite" for="forname">Prénom : </label>
-                          <input type="text" id="forname" name="forname" placeholder="Prénom du client" required class="form-control">
+                          <label class="contact--box_label contact--box_labelwhite" for="customer_num">Numéro client : </label>
+                          <input type="text" id="customer_num" name="customer_num" placeholder="Référence" required class="form-control">
                           </div>
-                          <div class="col-12 col-md-12">
-                          <label class="contact--box_label contact--box_labelwhite" for="phone">Téléphone : </label>
-                          <input type="tel" id="phone" name="phone" placeholder="Numéro de téléphone du client" required class="form-control">
+                        </div>
+                          <div class="row">
+                            <div class="col-12 col-lg-3">
+                          <label class="contact--box_label contact--box_labelwhite" for="forname">Référence : </label>
+                          <input type="text" id="forname" name="forname" placeholder="Référence" required class="form-control">
                           </div>
+                          <div class="col-12 col-lg-3">
+                          <label class="contact--box_label contact--box_labelwhite" for="phone">Quantité en stocks: </label>
+                          <input type="tel" id="phone" name="phone" placeholder="Quantité" required class="form-control">
+                          </div>
+                          <div class="col-12 col-lg-3">
+                          <label class="contact--box_label contact--box_labelwhite" for="phone">Désignation: </label>
+                          <input type="tel" id="phone" name="phone" placeholder="Désignation" required class="form-control">
+                          </div>
+                          <div class="col-12 col-lg-3">
+                          <label class="contact--box_label contact--box_labelwhite" for="phone">Prix: </label>
+                          <input type="tel" id="phone" name="phone" placeholder="Prix" required class="form-control">
+                          </div>
+                        </div>
+                          <div class="row">
+                            <div class="col-12 col-lg-6">
+                          <label class="contact--box_label contact--box_labelwhite" for="forname">Quantité commandée: </label>
+                          <input type="text" id="forname" name="forname" placeholder="Quantité commandée" required class="form-control">
+                          </div>
+                          <div class="col-12 col-lg-6">
+                          <label class="contact--box_label contact--box_labelwhite" for="phone">Total commande: </label>
+                          <input type="tel" id="phone" name="phone" placeholder="Total commande" required class="form-control">
+                          </div>
+
+                        </div>
+                          <!--
                           <div class="col-12 col-md-12">
                           <label class="contact--box_label contact--box_labelwhite" for="address">Adresse : </label>
                           <input type="text" id="address" name="address" placeholder="Adresse du client" required class="form-control">
@@ -122,9 +141,9 @@ $(document).ready(function() {
                           <div class="col-12 col-md-12">
                           <label class="contact--box_label contact--box_labelwhite" for="town">Ville : </label>
                           <input type="text" id="town" name="town" placeholder="Saisir la ville de résidence du client" required class="form-control"><br>
-                          </div>
+                          </div> -->
                           <div class="col-12 col-md-12">
-                                <div class="form-main">
+                                <!-- <div class="form-main">
                                     <div class="form-block">
                                       <div class="row">
                                               <div class="col-12 col-lg-6">
@@ -136,22 +155,29 @@ $(document).ready(function() {
                                                   <input type="text" id="quantity" name="quantity" placeholder="Saisir la quantité" required class="form-control">
                                               </div>
                                         </div><br>
-                                  </div>
+                                  </div> -->
                                       <div class="result"></div>
                                           <div class="buttons">
                                           <button class="clone btn btn-success">Ajouter un produit</button>
                                           <button class="remove btn btn-danger">Supprimer un produit</button>
                                           <input type="submit" name="formulaire" value="Saisir la commande" required class="btn btn-primary">
                                       </div>
-                                  </div>
+                                  </div> 
                               </div>
                             </div>
                       </div>
                   </div>
               </div>
           </div>
-      </form>
+ 
+
+
+          </form>
     </section>
+
+
+
+
     <script src="../js/script_ajout_enregistrement_commande.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
