@@ -4,77 +4,8 @@ include('../include/header.php');
 ?>
 <?php if ($_SESSION['role'] == 'admin') : ?>
 
-    <script>
-/* initialisation paramètres globaux : */
-var cache = {}; /* tableau cache de tous les termes */
-var term = null; /* terme renseigné dans le champ input */
-var baseUrl = 'http://facturation/site/enregistrement_commande.php'; /* url du site */
-baseUrl = '';
-$(document).ready(function() {
-	/* name autocomplete */
-	$('#customer_name').autocomplete({
-		minLength:2, /* nombre de caractères minimaux pour lancer une recherche */
-		delay:200, /* delais après la dernière touche appuyée avant de lancer une recherche */
-		scrollHeight:320,
-		appendTo:'#customer_name-container', /* div ou afficher la liste des résultats, si null, ce sera une div en position fixe avant la fin de </body> */
-		
-		/* dès qu'une recherche se lance, source est executé, il peut contenir soit un tableau JSON de termes, soit une fonctions qui retournera un résultat */
-		source:function(e,t){
-			term = e.term; /* récupération du terme renseigné dans l'input */
-			if(term in cache){ /* on vérifie que la clé "term" existe dans le tableau "cache", si oui alors on affiche le résultat */
-				t(cache[term]);
-			}else{ /* sinon on fait une requête ajax vers name.php pour rechercher "term" */
-				$('#loading').attr('style','');
-				$.ajax({
-					type:'GET',
-					url:'../autocomplete/name.php',
-					data:'customer_name='+e.term,
-					dataType:"json",
-					async:true,
-					cache:true,
-					success:function(e){
-						cache[term] = e; /* vide ou non, on stocke la liste des résultats avec en clé "term" */
-						if(!e.length){ /* si aucun résultats, on renvoi un tableau vide pour informer qu'on a rien trouvé */
-							var result = [{
-								label: 'Aucun nom trouvé...',
-								value: null,
-								id: null,
-							}];
-							t(result); /* envoit du résultat à source */
-						}else{ /* sinon on renvoi toute la liste */
-							t($.map(e, function (item){
-								return{
-									label: item.label,
-									value: item.value,
-									customer_num: item.customer_num,
-								}
-							}));  /* envoit du résultat à source avec map() de jQuery (permet d'appliquer une fonction pour tous les éléments d'un tableau */
-						}
-						$('#loading').attr('style','display:none;');
-					}
-				});
-			}
-		},
-		
-		/* sélection depuis la liste des résultats (flèches ou clic) > ajout du résultat automatique et callback */
-		select: function(event, ui) {
-			$('form input[customer_name="customer_name-customer_num"]').val(ui.item ? ui.item.customer_num : ''); /* on récupère juste l'id qu'on stocke dans l'autre input */
-		},
-        select: function(event, ui) {
-			$('#customer_num').val(ui.item ? ui.item.customer_num : ''); /* On récupère le numéro client pour l'insérer dans l'input */
-		},
-		open: function() {
-			$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-		},
-		close: function() {
-			$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-		},
-	});
-});
-
-</script>
-
-
+    <script src=../js/name.js></script>
+    <script src=../js/designation.js></script>
 
 
 
@@ -85,10 +16,10 @@ $(document).ready(function() {
     <form id="basic-form" action="../traitement/traitement_enregistrement_commande.php" method="POST">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col12 col-md-9 contact--box_formulaire">
+                    <div class="col12 col-md-9">
                         <div class="row">
                           <div class="col-12 col-lg-6">
-                          <label class="contact--box_label contact--box_labelwhite" for="customer_name">Identité du client : </label>
+                          <label for="customer_name">Identité du client : </label>
                           <span id="customer_name-container">
                           <input type="text" id="customer_name" name="customer_name" placeholder="Nom du client" required class="form-control">
                           </span>
@@ -96,39 +27,45 @@ $(document).ready(function() {
                           <input type="hidden" name="customer_name-hidden">
                           </div>
                           <div class="col-12 col-lg-6">
-                          <label class="contact--box_label contact--box_labelwhite" for="customer_num">Numéro client : </label>
+                          <label for="customer_num">Numéro client : </label>
                           <input type="text" id="customer_num" name="customer_num" placeholder="Référence" required class="form-control">
                           </div>
                         </div>
                           <div class="row">
+                          <div class="col-12 col-lg-12">
+                          <label for="product_designation">Désignation : </label>
+                          <span id="product_designation-container">
+                          <input type="text" id="product_designation" name="product_designation" placeholder="Désignation" required class="form-control">
+                          </span>
+                          <span id="loading" style="display:none;"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+                          <input type="hidden" name="product_designation-hidden">
+                          </div>
+                          </div>
+                          <div class="row">
                             <div class="col-12 col-lg-3">
-                          <label class="contact--box_label contact--box_labelwhite" for="forname">Référence : </label>
-                          <input type="text" id="forname" name="forname" placeholder="Référence" required class="form-control">
+                          <label for="product_code">Référence : </label>
+                          <input type="text" id="product_code" name="product_code" placeholder="Référence" required class="form-control">
                           </div>
                           <div class="col-12 col-lg-3">
-                          <label class="contact--box_label contact--box_labelwhite" for="phone">Quantité en stocks: </label>
-                          <input type="tel" id="phone" name="phone" placeholder="Quantité" required class="form-control">
+                          <label for="stock_qty">Quantité en stocks: </label>
+                          <input type="text" id="stock_qty" name="stock_qty" placeholder="Quantité" required class="form-control">
                           </div>
-                          <div class="col-12 col-lg-3">
-                          <label class="contact--box_label contact--box_labelwhite" for="phone">Désignation: </label>
-                          <input type="tel" id="phone" name="phone" placeholder="Désignation" required class="form-control">
+                          <div class="col-12 col-lg-6">
+                          <label for="product_price">Prix: </label>
+                          <input type="tel" id="product_price" name="product_price" placeholder="Prix" required class="form-control">
                           </div>
-                          <div class="col-12 col-lg-3">
-                          <label class="contact--box_label contact--box_labelwhite" for="phone">Prix: </label>
-                          <input type="tel" id="phone" name="phone" placeholder="Prix" required class="form-control">
                           </div>
-                        </div>
                           <div class="row">
                             <div class="col-12 col-lg-6">
-                          <label class="contact--box_label contact--box_labelwhite" for="forname">Quantité commandée: </label>
+                          <label for="forname">Quantité commandée: </label>
                           <input type="text" id="forname" name="forname" placeholder="Quantité commandée" required class="form-control">
                           </div>
                           <div class="col-12 col-lg-6">
-                          <label class="contact--box_label contact--box_labelwhite" for="phone">Total commande: </label>
+                          <label for="phone">Total commande: </label>
                           <input type="tel" id="phone" name="phone" placeholder="Total commande" required class="form-control">
                           </div>
 
-                        </div>
+                        </div><br>
                           <!--
                           <div class="col-12 col-md-12">
                           <label class="contact--box_label contact--box_labelwhite" for="address">Adresse : </label>
@@ -156,13 +93,18 @@ $(document).ready(function() {
                                               </div>
                                         </div><br>
                                   </div> -->
+                                  <div class="row">
                                       <div class="result"></div>
                                           <div class="buttons">
-                                          <button class="clone btn btn-success">Ajouter un produit</button>
+                                          <input type="button" id="ajouter" name="ajouter" value="Ajouter" required class="btn btn-success" onclick="plus_com();"/>
+                                          <input type="text" id="param" name="param" style="visibility:hidden;"/>
                                           <button class="remove btn btn-danger">Supprimer un produit</button>
                                           <input type="submit" name="formulaire" value="Saisir la commande" required class="btn btn-primary">
+                                          <input type="text" id="chaine_com" name="chaine_com" style="visibility:hidden;" />
+                                          <input type="text" id="total_com" name="total_com" style="visibility:hidden;" />
                                       </div>
                                   </div> 
+                                  </div>
                               </div>
                             </div>
                       </div>
@@ -174,11 +116,51 @@ $(document).ready(function() {
 
           </form>
     </section>
+        <section>
+          <div style="float:left; width:100%; height:auto;" id="det_com">
+          <div class="bord"></div>
+          <div class="suite">
+          B001
+          </div>
+          <div class="suite">
+          125
+          </div>
+          <div class="des">
+          Chaise roulante pour bureau d'entreprise
+          </div>
+          <div class="prix">
+          125.25
+          </div>
+          <div class="prix" style="font-weight:bold;">
+          1243.75
+          </div>
+          <div class="bord"></div>
+          </div>  
+        </section>
 
+        <script language='javascript' type="text/javascript">
 
+var tot_com = 0;
 
+function plus_com()
+{
+if(ref_client.value != 0 && ref_produit.value != 0 && qte_commande.value != "0" && qte_commande.value !="")
+{
+if(parseInt(qte_commande.value) > parseInt(qte.value))
+alert("La quantité en stock n'est pas suffisante pour honorer la commande");
+else
+{
 
-    <script src="../js/script_ajout_enregistrement_commande.js"></script>
+}
+}
+}
+
+function facture()
+{
+
+}
+
+<script src="../js/script_ajout_enregistrement_commande.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>

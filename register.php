@@ -47,7 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Validate email
         if(empty(trim($_POST["email"]))){
             $email_err = "Please enter a email.";
-        } elseif(!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i', trim($_POST["email"]))){
+        } elseif(!preg_match("/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/", trim($_POST["email"]))){
             $email_err = "email can only contain letters, numbers, and underscores.";
         } else{
             // Prepare a select statement
