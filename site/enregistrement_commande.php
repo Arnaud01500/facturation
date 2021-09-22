@@ -57,8 +57,8 @@ include('../include/header.php');
                           </div>
                           <div class="row">
                             <div class="col-12 col-lg-6">
-                          <label for="forname">Quantité commandée: </label>
-                          <input type="text" id="forname" name="forname" placeholder="Quantité commandée" required class="form-control">
+                          <label for="order_qty">Quantité commandée: </label>
+                          <input type="text" id="order_qty" name="order_qty" placeholder="Quantité commandée" required class="form-control">
                           </div>
                           <div class="col-12 col-lg-6">
                           <label for="phone">Total commande: </label>
@@ -138,15 +138,15 @@ include('../include/header.php');
           </div>  
         </section>
 
-        <script language='javascript' type="text/javascript">
+<script language='javascript' type="text/javascript">
 
 var tot_com = 0;
 
 function plus_com()
 {
-if(ref_client.value != 0 && ref_produit.value != 0 && qte_commande.value != "0" && qte_commande.value !="")
+if(customer_name.value != "" && customer_num.value != "" && product_designation.value != "" && product_code.value !="" && stock_qty.value !="0" && stock_qty.value !="" && product_price.value !="" && order_qty.value !="" && order_qty.value !="0")
 {
-if(parseInt(qte_commande.value) > parseInt(qte.value))
+if(parseInt(order_qty.value) > parseInt(stock_qty.value))
 alert("La quantité en stock n'est pas suffisante pour honorer la commande");
 else
 {
@@ -159,6 +159,7 @@ function facture()
 {
 
 }
+</script>
 
 <script src="../js/script_ajout_enregistrement_commande.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
