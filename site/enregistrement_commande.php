@@ -61,8 +61,8 @@ include('../include/header.php');
                           <input type="text" id="order_qty" name="order_qty" placeholder="Quantité commandée" required class="form-control">
                           </div>
                           <div class="col-12 col-lg-6">
-                          <label for="phone">Total commande: </label>
-                          <input type="tel" id="phone" name="phone" placeholder="Total commande" required class="form-control">
+                          <label for="total_order">Total commande: </label>
+                          <input type="text" id="total_order" name="total_order" placeholder="Total commande" required class="form-control">
                           </div>
 
                         </div><br>
@@ -96,12 +96,12 @@ include('../include/header.php');
                                   <div class="row">
                                       <div class="result"></div>
                                           <div class="buttons">
-                                          <input type="button" id="ajouter" name="ajouter" value="Ajouter" required class="btn btn-success" onclick="plus_com();"/>
+                                          <input type="button" id="ajouter" name="ajouter" value="Ajouter" required class="btn btn-success" onclick="plus_ord();"/>
                                           <input type="text" id="param" name="param" style="visibility:hidden;"/>
                                           <button class="remove btn btn-danger">Supprimer un produit</button>
                                           <input type="submit" name="formulaire" value="Saisir la commande" required class="btn btn-primary">
-                                          <input type="text" id="chaine_com" name="chaine_com" style="visibility:hidden;" />
-                                          <input type="text" id="total_com" name="total_com" style="visibility:hidden;" />
+                                          <input type="text" id="chain_ord" name="chain_ord" style="visibility:hidden;" />
+                                          <input type="text" id="total_ord" name="total_ord" style="visibility:hidden;" />
                                       </div>
                                   </div> 
                                   </div>
@@ -117,48 +117,65 @@ include('../include/header.php');
           </form>
     </section>
         <section>
-          <div style="float:left; width:100%; height:auto;" id="det_com">
-          <div class="bord"></div>
-          <div class="suite">
-          B001
+          <div style="float:left; width:100%; height:auto;" id="det_ord">
+          <div class="border"></div>
+          <div class="next">
+            123
           </div>
-          <div class="suite">
-          125
+          <div class="next">
           </div>
-          <div class="des">
-          Chaise roulante pour bureau d'entreprise
+          <div class="designation">
           </div>
-          <div class="prix">
-          125.25
+          <div class="price"> 
           </div>
-          <div class="prix" style="font-weight:bold;">
-          1243.75
+          <div class="price" style="font-weight:bold;">
           </div>
-          <div class="bord"></div>
+          <div class="border"></div>
           </div>  
         </section>
 
 <script language='javascript' type="text/javascript">
 
-var tot_com = 0;
+var tot_ord = 0;
 
-function plus_com()
+function plus_ord()
 {
 if(customer_name.value != "" && customer_num.value != "" && product_designation.value != "" && product_code.value !="" && stock_qty.value !="0" && stock_qty.value !="" && product_price.value !="" && order_qty.value !="" && order_qty.value !="0")
 {
 if(parseInt(order_qty.value) > parseInt(stock_qty.value))
 alert("La quantité en stock n'est pas suffisante pour honorer la commande");
-else
-{
+else{
+    var des_p = product_designation.value;
+    var cod_p = product_code.value;
+    var qty_o = order_qty.value;
+    var pri_p = product_price.value;
 
+    tot_ord = tot_ord + qty_o*pri_p;
+    total_order.value = tot_ord.toFixed(2);
+    total_ord.value = total_order.value;
+    chain_ord.value += "|" + cod_p +";" + qty_o + ";" + des_p + ";" + pri_p;
 }
 }
 }
 
 function facture()
 {
-
-}
+  var tab_ord = chain_ord.value.split('|');
+  var nb_ligne = tab_ord.length;
+  document.getElementById("det_ord").innerHTML = "";
+  for (ligne=0; ligne<nb_ligne; ligne++){
+      if(tab_ord[ligne]!=""){
+        var ligne_ord = tab_ord[ligne].split(';');
+        document.getElementById("det_ord").innerHTML += "<div class='border'></div>";
+        document.getElementById("det_ord").innerHTML += "<div class='next'>" + ligne_ord[0] + "</div>";
+        document.getElementById("det_ord").innerHTML += "<div class='next'>" + ligne_ord[1] + "</div>";
+        document.getElementById("det_ord").innerHTML += "<div class='designation'>" + ligne_ord[2] + "</div>";
+        document.getElementById("det_ord").innerHTML += "<div class='price'>" + ligne_ord[3] + "</div>";
+        document.getElementById("det_ord").innerHTML += "<div class='price'>" + (ligne_ord[1]*ligne_ord[3]).toFixed(2) +"</div>";
+        document.getElementById("det_ord").innerHTML += "<div class='border'></div>";
+      }
+    }
+  }
 </script>
 
 <script src="../js/script_ajout_enregistrement_commande.js"></script>
