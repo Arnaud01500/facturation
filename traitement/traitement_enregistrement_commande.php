@@ -3,54 +3,39 @@ include('../config.php');
 
 $errors = [];
 
-if(empty($_POST['name'])  || 
-empty($_POST['forname']) ||
-empty($_POST['phone']) ||
-empty($_POST['address']) ||
-empty($_POST['zipcode']) ||
-empty($_POST['town']) ||
-empty($_POST['ref_product']) ||
-empty($_POST['quantity']))
+if(empty($_POST['customer_name'])  || 
+empty($_POST['customer_num']) ||
+empty($_POST['product_code']) ||
+empty($_POST['product_designation']) ||
+empty($_POST['stock_qty']) ||
+empty($_POST['product_price']) ||
+empty($_POST['order_qty']) ||
+empty($_POST['total_order']))
 
 {
     $errors = "\n Error: Tous les champs sont requis";
 }
 
-$name = $_POST['name'];
-$forname = $_POST['forname'];
-$phone = $_POST['phone'];
-$address = $_POST['address'];
-$zipcode = $_POST['zipcode'];
-$town = $_POST['town'];
-$ref_product = $_POST['ref_product'];
-$quantity = $_POST['quantity'];
+$order_customer = $_POST['customer_name'];
+$order_customer_num = $_POST['customer_num'];
+$order_product_code = $_POST['product_code'];
+$order_product_designation = $_POST['product_designation'];
+$order_product_price = $_POST['product_price'];
+$order_qty = $_POST['order_qty'];
+$order_date = date('d/m/Y');
+$order_price = $_POST['total_order'];
 
-
-
-if(!preg_match("/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/",$zipcode))
-
-{
-    $errors .= "\n Error: Le code postal est invalide";
-}
-
-if(!preg_match("/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/",$phone))
-
-{
-    $errors .= "\n Error: Le numéro de téléphone est invalide";
-}
-if(!preg_match("/^[0-9]+$/",$quantity))
-
-{
-    $errors .= "\n Error: La quantité est invalide";
-}
+$text_ord = $_POST["chain_ord"];
+$tab_ord = explode('|',$text_ord);
 
 
 if(empty($errors)){
 
-    $query = "INSERT INTO `orders` (name, forname, phone, address, zipcode, town, ref_product, quantity) VALUE ('$name', '$forname', '$phone', '$address', '$zipcode', '$town', '$ref_product', '$quantity')";
+    $query = "INSERT INTO `orders` (order_customer, order_customer_num, order_product_code, order_product_designation, order_product_price, order_qty, order_date, order_price) VALUE ('".$order_customer."', '".$order_customer_num."', ".$order_product_code.", '".$order_product_designation."', ".$order_product_price.", ".$order_qty.", '".$order_date."', ".$order_price.");";
     $result = mysqli_query($link, $query);
-
-    header('Location: ../site/historique_commandes.php');
-}else{
-    echo 'erreur';
+    if($result==1){
+        header('Location: ../site/enregistrement_commande.php');
+    }else{
+        echo('pb');
+    }
 }
