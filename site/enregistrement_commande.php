@@ -61,8 +61,8 @@ include('../include/header.php');
                           <input type="text" id="order_qty" name="order_qty" placeholder="Quantité commandée" required class="form-control">
                           </div>
                           <div class="col-12 col-lg-6">
-                          <label for="total_order">Total commande: </label>
-                          <input type="text" id="total_order" name="total_order" placeholder="Total commande" required class="form-control">
+                          <label for="order_price">Total commande: </label>
+                          <input type="text" id="order_price" name="order_price" placeholder="Total commande" required class="form-control">
                           </div>
 
                         </div><br>
@@ -151,9 +151,10 @@ else{
     var pri_p = product_price.value;
 
     tot_ord = tot_ord + qty_o*pri_p;
-    total_order.value = tot_ord.toFixed(2);
+    order_price.value = tot_ord.toFixed(2);
     total_ord.value = total_order.value;
     chain_ord.value += "|" + cod_p +";" + qty_o + ";" + des_p + ";" + pri_p;
+    facture();
 }
 }
 }
