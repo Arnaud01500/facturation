@@ -13,7 +13,7 @@ include('../include/header.php');
 <body>
     <section>
 
-    <form id="basic-form" action="../traitement/traitement_enregistrement_commande.php" method="POST">
+    <form id="basic-form" action="" method="POST">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col12 col-md-9">
@@ -120,7 +120,6 @@ include('../include/header.php');
           <div style="float:left; width:100%; height:auto;" id="det_ord">
           <div class="border"></div>
           <div class="next">
-            123
           </div>
           <div class="next">
           </div>
@@ -154,6 +153,7 @@ else{
     total_order.value = tot_ord.toFixed(2);
     total_ord.value = total_order.value;
     chain_ord.value += "|" + cod_p +";" + qty_o + ";" + des_p + ";" + pri_p;
+    facture();
 }
 }
 }
