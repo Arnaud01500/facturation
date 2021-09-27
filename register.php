@@ -124,15 +124,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             //Envoi mail
 
-            $message = "Your Activation Code is " . $verification . "";
+            $message = "Votre code d'activation " . $verification . "";
             $to = $email;
-            $subject = "Activation Code For Talkerscode.com";
+            $subject = "Activation du compte";
             $from = 'your email';
-            $body = 'Your Activation Code is ' . $verification . ' Please Click On This link <a href="activation.php?username=' . $username . '&email=' . $email . '&verification=' . $verification . '">activation.php?email=' . $email . '&verification=' . $verification . '</a>to activate your account.';
+            $body = 'Bienvenue sur le site, Pour activer votre compte veuillez cliquer sur le lien <a href="https://michell.promo-90.codeur.online/facturation/activation.php?username=' .urlencode($username).'&email='.urlencode($email).'&verification='.urlencode($verification).' Le lien restera actif pendant 24h';
             $headers = "From:" . $from;
             mail($to, $subject, $body, $headers);
             
-            echo "An Activation Code Is Sent To You Check You Emails"; 
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){

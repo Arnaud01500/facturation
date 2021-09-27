@@ -12,8 +12,8 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require_once "config.php";
  
 // Define variables and initialize with empty values
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
+$username = $password = $isactive = "";
+$username_err = $password_err = $login_err = $isactive_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password ,role FROM users WHERE username = ?";
+        $sql = "SELECT id, username, password ,role ,isactive FROM users WHERE username = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -52,8 +52,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Check if username exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){                    
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $role);
-                    if(mysqli_stmt_fetch($stmt)){
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $role, $isactive);
+                    mysqli_stmt_fetch($stmt);
+                    $_SESSION["isactive"] = $isactive;
+                    if($isactive == 1){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
                             session_start();
@@ -69,6 +71,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Password is not valid, display a generic error message
                             $login_err = "Identifiant ou mot de passe invalide.";
                         }
+                    }else{
+                        $isactive_err = "Votre email de confirmation n'a pas été validé";
                     }
                 } else{
                     // Username doesn't exist, display a generic error message
@@ -112,6 +116,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo '<div class="alert alert-danger">' . $login_err . '</div>';
         }        
         ?>
+        <?php 
+        if(!empty($isactive_err)){
+            echo '<div class="alert alert-danger">' . $isactive_err . '</div>';
+        }        
+        ?>
+
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="form-group">
                     <label>Identifiant</label>
