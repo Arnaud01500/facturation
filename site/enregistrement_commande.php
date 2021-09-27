@@ -144,18 +144,22 @@ if(customer_name.value != "" && customer_num.value != "" && product_designation.
 if(parseInt(order_qty.value) > parseInt(stock_qty.value))
 alert("La quantité en stock n'est pas suffisante pour honorer la commande");
 else{
-    var des_p = product_designation.value;
+    var nam_c = customer_name.value;
+    var num_c = customer_num.value;
     var cod_p = product_code.value;
-    var qty_o = order_qty.value;
+    var des_p = product_designation.value;
+    var qty_s = stock_qty.value;
     var pri_p = product_price.value;
+    var qty_o = order_qty.value;
+    var pri_o = order_price.value;
 
     tot_ord = tot_ord + qty_o*pri_p;
     order_price.value = tot_ord.toFixed(2);
-    total_ord.value = total_order.value;
-    chain_ord.value += "|" + cod_p +";" + qty_o + ";" + des_p + ";" + pri_p;
+    total_ord.value = order_price.value;
+    chain_ord.value += "|" + nam_c +";" + num_c + ";" + cod_p + ";" + des_p + ";" + qty_s + ";" + pri_p + ";" + qty_o + ";" + pri_o;
     facture();
-}
-}
+    }
+  }
 }
 
 function facture()

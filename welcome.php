@@ -1,5 +1,5 @@
 <?php
-include('include/header.php');
+include('./include/header.php');
 ?>
 <body><h1 class="my-5">Bonjour, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Bienvenue sur votre espace.</h1>
     <p>

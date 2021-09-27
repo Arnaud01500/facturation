@@ -5,8 +5,9 @@ $errors = [];
 
 if(empty($_POST['customer_name'])  || 
 empty($_POST['customer_num']) ||
-empty($_POST['product_code']) ||
 empty($_POST['product_designation']) ||
+empty($_POST['product_code']) ||
+empty($_POST['stock_qty']) ||
 empty($_POST['product_price']) ||
 empty($_POST['order_qty']) ||
 empty($_POST['order_price']))
@@ -45,10 +46,12 @@ $tab_ord = explode('|',$chain_ord);
 //     $errors .= "\n Error: Le montant de la commande est invalide";
 // }
 
+var_dump($chain_ord);
+die();
 
 if(empty($errors)){
 
-    $query = "INSERT INTO `orders` (order_customer, order_customer_num, order_product_code, order_product_designation, order_product_price, order_qty, order_date, order_price) VALUES (".$order_customer.", ".$order_customer_num.", '".$order_product_code."', '".$order_product_designation."', ".$order_product_price.", ".$order_qty.", '".$order_date."', ".$order_price.");";
+    $query = "INSERT INTO `orders` (order_customer, order_customer_num, order_product_code, order_product_designation, order_product_price, order_qty, order_date, order_price) VALUES ('".$order_customer."', ".$order_customer_num.", '".$order_product_code."', '".$order_product_designation."', ".$order_product_price.", ".$order_qty.", '".$order_date."', ".$order_price.");";
     $result = mysqli_query($link, $query);
     if($result==1){
         echo('go');
