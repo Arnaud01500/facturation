@@ -25,12 +25,12 @@ include('../include/header.php');
 
                         // Boucle jQuery sur le tableau de données tabUser
                         $.each(tabUSer, function(index, data) {
-                        console.log(data.product_code_r); // log les emails ...
+                        console.log(data.id); // log les emails ...
 
 
                             // HTML à construire
 
-                            $('.tab').append("<tr><td>" + data.product_code + "</td><td>" + data.product_designation + "</td><td>" + data.product_price + "</td><td>" + data.product_qty + "</td><td><button data-product_code='" + data.product_code + "' data-product_designation='" + data.product_designation + "' data-product_price='" + data.product_price + "' data-product_qty='" + data.product_qty + "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
+                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.product_code + "</td><td>" + data.product_designation + "</td><td>" + data.product_price + "</td><td>" + data.product_qty + "</td><td><button data-id='" + data.id + "' data-product_code='" + data.product_code + "' data-product_designation='" + data.product_designation + "' data-product_price='" + data.product_price + "' data-product_qty='" + data.product_qty + "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
 
 
                         });
@@ -57,10 +57,11 @@ include('../include/header.php');
                     keyboard: false
                 })
 
+                $('#id_r').val($(this).data('id'));
                 $('#product_designation').val($(this).data('product_designation'));
                 $('#product_price').val($(this).data('product_price'));
                 $('#product_qty').val($(this).data('product_qty'));
-                $('#product_code_r').val($(this).data('product_code'));
+                $('#product_code').val($(this).data('product_code'));
 
             });
 
@@ -99,7 +100,7 @@ include('../include/header.php');
 
                 e.preventDefault(); // avoid to execute the actual submit of the form.
 
-                var product_code_r = $('#product_code_r').val();
+                var product_code_r = $('#product_code').val();
 
 
                 $.ajax({
@@ -149,14 +150,14 @@ include('../include/header.php');
 
                 e.preventDefault(); // avoid to execute the actual submit of the form.
 
-                var product_code_r = $('#product_code_r').val();
+                var id_r = $('#id_r').val();
 
 
                 $.ajax({
                     type: "POST",
                     url: '../tableau_produit/delete.php',
                     data: {
-                        product_code_r: product_code_r
+                        id_r: id_r
                     },
                     success: function(data) {
                         console.log(data); // show response from the php script.
@@ -192,9 +193,10 @@ include('../include/header.php');
                     <tr>
                         <th>ID</th>
                         <th>Référence produit</th>
-                        <th>Catégorie</th>
                         <th>Désignation</th>
                         <th>Prix</th>
+                        <th>Quantité</th>
+
                     </tr>
                 </thead>
                 <tbody class="tab">
@@ -205,7 +207,7 @@ include('../include/header.php');
 
             <!-- Modal d'édition-->
             <div class="editionModal modal fade" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Formulaire Edition</h5>
@@ -233,10 +235,17 @@ include('../include/header.php');
                                     <label for="product_qty">Stocks</label>
                                     <input type="text" class="form-control" id="product_qty" name="product_qty" aria-describedby="nh" placeholder="Le stock que vous souhaitez modifier">
                                     <small id="nh" class="form-text text-muted">Info stocks</small>
+                                            <?php
+                                            include('../config.php');
+                                            $sql = "SELECT file_img FROM files WHERE file_num=5";
+                                            $result = mysqli_query($link, $sql);
+                                            $row = mysqli_fetch_assoc($result);
+                                            echo "<img src='../uploads/".$row['file_img']."' width='300px' ><br>";  
+                                            ?>
 
 
-                                    <input id="product_code_r" name="product_code_r" type="hidden" value="">
                                 </div>
+                                <input id="id_r" name="id_r" type="hidden" value="">
 
                             </form>
                         </div>
@@ -244,6 +253,16 @@ include('../include/header.php');
                             <button type="submit" class="submitBtn btn btn-success">Valider</button>
                             <button type="submit" class="addBtn btn btn-info">Enregistrer</button>
                             <button type="button" class="deleteBtn btn btn-warning">Supprimer</button>
+                            <form action="../traitement/traitement_upload.php" method="post" enctype="multipart/form-data">
+                            Sélectionner le fichier à envoyer.
+                            <input type="file" name="fileToUpload" id="fileToUpload">
+                            <input type="submit" value="Envoyer Image" name="submit">
+
+
+                          
+
+                            </form>
+
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         </div>
                     </div>

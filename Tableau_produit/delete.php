@@ -3,12 +3,9 @@
 include('../config.php');
 
 //var_dump($_POST);
-$idTemp = $_POST['product_code_r'];
+$idTemp = $_POST['id'];
 
-$product_code = json_decode($idTemp);
 
-var_dump($product_code);
-die();
 //Traitement des données
-$query = "DELETE FROM products WHERE product_code='$product_code'";
+$query = "DELETE FROM products WHERE id='$idTemp'";
 $result = $link->query($query);

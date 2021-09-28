@@ -29,6 +29,8 @@ include('../include/header.php');
                         <input type="text" id="product_qty" name="product_qty" placeholder="Quantité à saisir" required class="form-control"><br>
                         </div>
                         <div class="col-12 col-md-12">
+                        Sélectionner le fichier à envoyer.
+                        <input type="file" name="fileToUpload" id="fileToUpload">
                         <input type="submit" name="formulaire" value="Ajouter" required class="btn btn-primary">
                         </div>
                       </div>
