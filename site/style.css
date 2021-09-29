@@ -27,3 +27,7 @@ input.error {
 .bienvenue{
     color: #fff;
 }
+
+.imgP{
+    max-width:300px;
+}

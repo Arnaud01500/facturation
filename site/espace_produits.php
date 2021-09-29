@@ -6,10 +6,6 @@ include('../include/header.php');
 <body>
 
     <script type="text/javascript">
-        $('#toto').css('color', 'blue');
-        $('#toto').hide();
-        $('#toto').text('ergergergergergr');
-        $('#toto').html('<h1>ergergergergergr</h1>');
 
         $(document).ready(function() {
 
@@ -62,6 +58,8 @@ include('../include/header.php');
                 $('#product_price').val($(this).data('product_price'));
                 $('#product_qty').val($(this).data('product_qty'));
                 $('#product_code').val($(this).data('product_code'));
+                var imgP = $(this).data('product_image');
+                $('.imgP_div').html('<img class="imgP" src="/uploads/'+imgP+'"/>');
 
             });
 
@@ -156,6 +154,7 @@ include('../include/header.php');
 
 
             <!-- Modal d'édition-->
+
             <div class="editionModal modal fade" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -167,7 +166,7 @@ include('../include/header.php');
                         </div>
                         <div class="modal-body">
                             <p>Edition produit</p>
-                            <form id="formEdition">
+                            <form id="formEdition" action="../traitement/traitement_upload_modal.php" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
 
                                     <label for="product_code">Référence</label>
@@ -185,34 +184,24 @@ include('../include/header.php');
                                     <label for="product_qty">Stocks</label>
                                     <input type="text" class="form-control" id="product_qty" name="product_qty" aria-describedby="nh" placeholder="Le stock que vous souhaitez modifier">
                                     <small id="nh" class="form-text text-muted">Info stocks</small>
-
-                                    <label for="product_image">Fichier</label>
-                                    <input type="text" class="form-control" id="product_image" name="product_image" aria-describedby="nh" placeholder="Le fichier que vous souhaitez modifier">
-                                    <small id="nh" class="form-text text-muted">Info fichier</small>
-
-
-
-
-
-                                            <?php
-                                            include('../config.php');
-                                            $sql = "SELECT file_img FROM files WHERE file_num=5";
-                                            $result = mysqli_query($link, $sql);
-                                            $row = mysqli_fetch_assoc($result);
-                                            echo "<img src='../uploads/".$row['file_img']."' width='300px' ><br>";  
-                                            ?>
+                                    
+                                    <div class="imgP_div"></div>
 
 
                                 </div>
                                 <input id="id_r" name="id_r" type="hidden" value="">
 
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="submitBtn btn btn-success">Valider</button>
-                            <button type="submit" class="addBtn btn btn-info">Enregistrer</button>
-                            <button type="button" class="deleteBtn btn btn-warning">Supprimer</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                </div>
+                                <div class="modal-footer">
+
+                                <input type="file" name="fileToUpload" id="fileToUpload">
+                                <input type="submit" value="Envoyer Image" name="submit">
+                                <button type="submit" class="submitBtn btn btn-success">Valider</button>
+                                <button type="submit" class="addBtn btn btn-info">Enregistrer</button>
+                                <button type="button" class="deleteBtn btn btn-warning">Supprimer</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        </form>
+
                         </div>
                     </div>
                 </div>

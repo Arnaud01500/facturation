@@ -5,6 +5,9 @@ $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $target_req = basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+$product_code = $_POST['product_code'];
+
+
 
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
@@ -50,6 +53,8 @@ if ($uploadOk == 0) {
 
     $query = "UPDATE `products` SET product_image='$target_req' WHERE product_code='$product_code'";
     $result = mysqli_query($link, $query);
+
+    header('Location: ../site/espace_produits.php');
 
   } else {
     echo "Sorry, there was an error uploading your file.";
