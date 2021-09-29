@@ -27,7 +27,33 @@ input.error {
 .bienvenue{
     color: #fff;
 }
-
+/*Affichage image dans modal produit */
 .imgP{
     max-width:300px;
+}
+/* Contenu facture */
+.designation{
+    width:30%;
+	height:25px;
+	float:left;
+	font-size:16px;
+	font-weight:normal;
+	text-align:left;
+	overflow:hidden;
+}
+.next{
+    width:15%;
+	height:25px;
+	float:left;
+	font-size:16px;
+	font-weight:normal;
+	text-align:left;
+}
+.price{
+    width:15%;
+	height:25px;
+	float:left;
+	font-size:16px;
+	font-weight:normal;
+	text-align:right;
 }

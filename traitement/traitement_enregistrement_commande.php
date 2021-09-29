@@ -46,15 +46,24 @@ $tab_ord = explode('|',$chain_ord);
 //     $errors .= "\n Error: Le montant de la commande est invalide";
 // }
 
-var_dump($chain_ord);
-die();
 
 if(empty($errors)){
 
     $query = "INSERT INTO `orders` (order_customer, order_customer_num, order_product_code, order_product_designation, order_product_price, order_qty, order_date, order_price) VALUES ('".$order_customer."', ".$order_customer_num.", '".$order_product_code."', '".$order_product_designation."', ".$order_product_price.", ".$order_qty.", '".$order_date."', ".$order_price.");";
     $result = mysqli_query($link, $query);
-    if($result==1){
-        echo('go');
-    }
 
+    if($result==1){
+        $detail_ord = mysqli_insert_id($link);
+        for($ligne=0 ; $ligne<sizeof($tab_ord) ;$ligne++){
+            if($tab_ord[$ligne]!=""){
+            $ligne_ord = explode(';', $tab_ord[$ligne]);
+            $query = "INSERT INTO details (detail_ord, detail_ref, detail_qty) VALUES (".$detail_ord.", '".$ligne_ord[3]."',".$ligne_ord[6].");";
+            $result = mysqli_query($link, $query);
+            $query = "UPDATE stocks SET stock_qty = stock_qty-".$ligne_ord[6]." WHERE stock_prod='".$ligne_ord[2]."';";
+            $result = mysqli_query($link, $query);
+            }
+        }
+        header('Location: ../site/enregistrement_commande.php');
+    }else
+    print("Il y a eu un problème dans la gestion du stocks");
 }

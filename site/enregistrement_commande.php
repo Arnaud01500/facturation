@@ -66,39 +66,12 @@ include('../include/header.php');
                           </div>
 
                         </div><br>
-                          <!--
                           <div class="col-12 col-md-12">
-                          <label class="contact--box_label contact--box_labelwhite" for="address">Adresse : </label>
-                          <input type="text" id="address" name="address" placeholder="Adresse du client" required class="form-control">
-                          </div>
-                          <div class="col-12 col-md-12">
-                          <label class="contact--box_label contact--box_labelwhite" for="zipcode">Code postal : </label>
-                          <input type="text" id="zipcode" name="zipcode" placeholder="Saisir le code postal du client" pattern="[0-9]{5}" required class="form-control">
-                          </div>
-                          <div class="col-12 col-md-12">
-                          <label class="contact--box_label contact--box_labelwhite" for="town">Ville : </label>
-                          <input type="text" id="town" name="town" placeholder="Saisir la ville de résidence du client" required class="form-control"><br>
-                          </div> -->
-                          <div class="col-12 col-md-12">
-                                <!-- <div class="form-main">
-                                    <div class="form-block">
-                                      <div class="row">
-                                              <div class="col-12 col-lg-6">
-                                                  <label class="contact--box_label contact--box_labelwhite" for="ref_product">Référence : </label>
-                                                  <input type="text" id="ref_product" name="ref_product" placeholder="Saisir la référence" required class="form-control">
-                                              </div>
-                                              <div class="col-12 col-lg-6">
-                                                  <label class="contact--box_label contact--box_labelwhite" for="quantity">Quantité : </label>
-                                                  <input type="text" id="quantity" name="quantity" placeholder="Saisir la quantité" required class="form-control">
-                                              </div>
-                                        </div><br>
-                                  </div> -->
                                   <div class="row">
                                       <div class="result"></div>
                                           <div class="buttons">
                                           <input type="button" id="ajouter" name="ajouter" value="Ajouter" required class="btn btn-success" onclick="plus_ord();"/>
                                           <input type="text" id="param" name="param" style="visibility:hidden;"/>
-                                          <button class="remove btn btn-danger">Supprimer un produit</button>
                                           <input type="submit" name="formulaire" value="Saisir la commande" required class="btn btn-primary">
                                           <input type="text" id="chain_ord" name="chain_ord" style="visibility:hidden;" />
                                           <input type="text" id="total_ord" name="total_ord" style="visibility:hidden;" />
@@ -117,7 +90,7 @@ include('../include/header.php');
           </form>
     </section>
         <section>
-          <div style="float:left; width:100%; height:auto;" id="det_ord">
+          <div id="det_ord">
           <div class="border"></div>
           <div class="next">
           </div>
@@ -171,15 +144,25 @@ function facture()
       if(tab_ord[ligne]!=""){
         var ligne_ord = tab_ord[ligne].split(';');
         document.getElementById("det_ord").innerHTML += "<div class='border'></div>";
-        document.getElementById("det_ord").innerHTML += "<div class='next'>" + ligne_ord[0] + "</div>";
-        document.getElementById("det_ord").innerHTML += "<div class='next'>" + ligne_ord[1] + "</div>";
-        document.getElementById("det_ord").innerHTML += "<div class='designation'>" + ligne_ord[2] + "</div>";
-        document.getElementById("det_ord").innerHTML += "<div class='price'>" + ligne_ord[3] + "</div>";
-        document.getElementById("det_ord").innerHTML += "<div class='price'>" + (ligne_ord[1]*ligne_ord[3]).toFixed(2) +"</div>";
-        document.getElementById("det_ord").innerHTML += "<div class='border'></div>";
+        document.getElementById("det_ord").innerHTML += "<div class='designation'>" + ligne_ord[3] + "</div>";
+        document.getElementById("det_ord").innerHTML += "<div class='next'>" + ligne_ord[6] + "</div>";
+        document.getElementById("det_ord").innerHTML += "<div class='price'>" + ligne_ord[5] + "</div>";
+        document.getElementById("det_ord").innerHTML += "<div class='price'>" + (ligne_ord[6]*ligne_ord[5]).toFixed(2) +"</div>";
+        document.getElementById("det_ord").innerHTML += "<div class='border'><input type='button' value='X' title='Supprimer le produit' style='height:20px; font-size:12px;' onclick='suppr(\"" + tab_ord[ligne] + "\");' /></div>";
       }
     }
   }
+  function suppr( ligne_s)
+      {
+      chain_ord.value = chain_ord.value.replace('|' + ligne_s, '');
+      var tab_detail = ligne_s.split(";");
+
+      order_price.value = (order_price.value - tab_detail[6]*tab_detail[5]).toFixed(2);
+      total_ord.value = order_price.value;
+      tot_ord = total_ord.value*1;
+
+      facture();
+      }
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
