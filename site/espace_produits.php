@@ -30,7 +30,7 @@ include('../include/header.php');
 
                             // HTML à construire
 
-                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.product_code + "</td><td>" + data.product_designation + "</td><td>" + data.product_price + "</td><td>" + data.product_qty + "</td><td><button data-id='" + data.id + "' data-product_code='" + data.product_code + "' data-product_designation='" + data.product_designation + "' data-product_price='" + data.product_price + "' data-product_qty='" + data.product_qty + "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
+                            $('.tab').append("<tr><td>" + data.id + "</td><td>" + data.product_code + "</td><td>" + data.product_designation + "</td><td>" + data.product_price + "</td><td>" + data.product_qty + "</td><td><button data-id='" + data.id + "' data-product_code='" + data.product_code + "' data-product_designation='" + data.product_designation + "' data-product_price='" + data.product_price + "' data-product_qty='" + data.product_qty + "' data-product_image='" + data.product_image + "' class='btn edit' data-toggle='modal' data-target='#editionModal'>EDITION</button></td></tr>");
 
 
                         });
@@ -95,56 +95,6 @@ include('../include/header.php');
             // Suppression de l'enregistrement
 
             $(".deleteBtn").click(function(e) {
-
-                // alert('toto'); On vérifie si on passe bien dans l'event click
-
-                e.preventDefault(); // avoid to execute the actual submit of the form.
-
-                var product_code_r = $('#product_code').val();
-
-
-                $.ajax({
-                    type: "POST",
-                    url: '../tableau_produit/delete.php',
-                    data: {
-                        product_code_r: product_code_r
-                    },
-                    success: function(data) {
-                        console.log(data); // show response from the php script.
-
-                        document.location.reload();
-
-                    }
-                });
-
-
-            });
-
-
-            // Gestion ajout
-
-            $(".add").click(function(e) {
-                $('.deleteBtn').hide();
-                $('.submitBtn').hide();
-                $('.addBtn').show();
-
-
-                $('.editionModal').modal({
-                    keyboard: false
-                })
-
-                $('#product_designation').val('');
-                $('#product_price').val('');
-                $('#product_qty').val('');
-                $('#product_code_r').val('');
-
-                e.preventDefault(); // avoid to execute the actual submit of the form.
-
-            });
-
-            // Formulaire Ajout
-
-            $(".addBtn").click(function(e) {
 
                 // alert('toto'); On vérifie si on passe bien dans l'event click
 
@@ -235,6 +185,15 @@ include('../include/header.php');
                                     <label for="product_qty">Stocks</label>
                                     <input type="text" class="form-control" id="product_qty" name="product_qty" aria-describedby="nh" placeholder="Le stock que vous souhaitez modifier">
                                     <small id="nh" class="form-text text-muted">Info stocks</small>
+
+                                    <label for="product_image">Fichier</label>
+                                    <input type="text" class="form-control" id="product_image" name="product_image" aria-describedby="nh" placeholder="Le fichier que vous souhaitez modifier">
+                                    <small id="nh" class="form-text text-muted">Info fichier</small>
+
+
+
+
+
                                             <?php
                                             include('../config.php');
                                             $sql = "SELECT file_img FROM files WHERE file_num=5";
@@ -253,16 +212,6 @@ include('../include/header.php');
                             <button type="submit" class="submitBtn btn btn-success">Valider</button>
                             <button type="submit" class="addBtn btn btn-info">Enregistrer</button>
                             <button type="button" class="deleteBtn btn btn-warning">Supprimer</button>
-                            <form action="../traitement/traitement_upload.php" method="post" enctype="multipart/form-data">
-                            Sélectionner le fichier à envoyer.
-                            <input type="file" name="fileToUpload" id="fileToUpload">
-                            <input type="submit" value="Envoyer Image" name="submit">
-
-
-                          
-
-                            </form>
-
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         </div>
                     </div>

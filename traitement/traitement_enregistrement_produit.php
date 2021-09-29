@@ -7,6 +7,38 @@ $target_req = basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
+
+
+
+$errors = [];
+
+if(empty($_POST['product_code'])  || 
+empty($_POST['product_designation']) ||
+empty($_POST['product_price']) ||
+empty($_POST['product_qty']))
+{
+    $errors = "\n Error: Tous les champs sont requis";
+}
+
+$product_code = $_POST['product_code'];
+$product_designation = $_POST['product_designation'];
+$product_price = $_POST['product_price'];
+$product_qty = $_POST['product_qty'];
+
+if(empty($errors)){
+
+    $query = "INSERT INTO `products` (product_code, product_designation, product_price, product_qty, product_image) VALUES ('$product_code', '$product_designation', '$product_price', '$product_qty', '$target_req')";
+    $result = $link->query($query);
+
+   header('Location: ../site/enregistrement_produit.php');
+}else{
+    echo 'erreur';
+}
+
+
+
+
+
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -49,38 +81,25 @@ if ($uploadOk == 0) {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
 
-    $query = "UPDATE `products` SET product_image='$target_req' WHERE product_code='$product_code'";
-    $result = mysqli_query($link, $query);
+    // $query = "UPDATE `products` SET product_image='$target_req' WHERE product_code='$product_code'";
+    // $result = mysqli_query($link, $query);
+
+    
+
+
+
+
+
+
+
+
+
 
   } else {
     echo "Sorry, there was an error uploading your file.";
   }
 }
 
-$errors = [];
-
-if(empty($_POST['product_code'])  || 
-empty($_POST['product_designation']) ||
-empty($_POST['product_price']) ||
-empty($_POST['product_qty']))
-{
-    $errors = "\n Error: Tous les champs sont requis";
-}
-
-$product_code = $_POST['product_code'];
-$product_designation = $_POST['product_designation'];
-$product_price = $_POST['product_price'];
-$product_qty = $_POST['product_qty'];
-
-if(empty($errors)){
-
-    $query = "INSERT INTO `products` (product_code, product_designation, product_price, product_qty, product_image) VALUES ('$product_code', '$product_designation', '$product_price', '$product_qty')";
-    $result = $link->query($query);
-
-   header('Location: ../site/enregistrement_produit.php');
-}else{
-    echo 'erreur';
-}
 
 
 

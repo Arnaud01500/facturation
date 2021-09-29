@@ -4,7 +4,7 @@ include('../include/header.php');
 <?php if ($_SESSION['role'] == 'admin') : ?>
 <body>
     <section>
-    <form id="basic-form" action="../traitement/traitement_enregistrement_produit.php" method="POST">
+    <form id="basic-form" action="../traitement/traitement_enregistrement_produit.php" method="POST" enctype="multipart/form-data">
           <div class="sectionSaisie">
             <div class="container">
               <div class="contact--box">
@@ -29,9 +29,8 @@ include('../include/header.php');
                         <input type="text" id="product_qty" name="product_qty" placeholder="Quantité à saisir" required class="form-control"><br>
                         </div>
                         <div class="col-12 col-md-12">
-                        Sélectionner le fichier à envoyer.
                         <input type="file" name="fileToUpload" id="fileToUpload">
-                        <input type="submit" name="formulaire" value="Ajouter" required class="btn btn-primary">
+                        <input type="submit" name="submit" value="Ajouter" required class="btn btn-primary">
                         </div>
                       </div>
                     </div>
