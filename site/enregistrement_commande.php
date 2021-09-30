@@ -9,11 +9,10 @@ include('../include/header.php');
 
 
 
-
 <body>
     <section>
 
-    <form id="basic-form" action="../traitement/traitement_enregistrement_commande.php" method="POST">
+    <form id="basic-form" name="basic-id" action="../traitement/traitement_enregistrement_commande.php" method="POST">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col12 col-md-9">
@@ -72,7 +71,7 @@ include('../include/header.php');
                                           <div class="buttons">
                                           <input type="button" id="ajouter" name="ajouter" value="Ajouter" required class="btn btn-success" onclick="plus_ord();"/>
                                           <input type="text" id="param" name="param" style="visibility:hidden;"/>
-                                          <input type="submit" name="formulaire" value="Saisir la commande" required class="btn btn-primary">
+                                          <input type="submit" name="formulaire" value="Saisir la commande" required class="btn btn-primary"/>
                                           <input type="text" id="chain_ord" name="chain_ord" style="visibility:hidden;" />
                                           <input type="text" id="total_ord" name="total_ord" style="visibility:hidden;" />
                                       </div>
@@ -103,7 +102,13 @@ include('../include/header.php');
           <div class="price" style="font-weight:bold;">
           </div>
           <div class="border"></div>
-          </div>  
+          </div>
+          
+          <div style="float:left; width:5%; height:25px;"></div>
+
+          <div style="float:left; width:100%; height:auto;" id="editer">
+          </div>
+
         </section>
 
 <script language='javascript' type="text/javascript">

@@ -29,23 +29,6 @@ $chain_ord = $_POST["chain_ord"];
 $tab_ord = explode('|',$chain_ord);
 
 
-// if(!preg_match("/^[0-9]+$/",$order_product_price))
-
-// {
-//     $errors .= "\n Error: Le prix est invalide";
-// }
-
-// if(!preg_match("/^[0-9]+$/",$order_qty))
-
-// {
-//     $errors .= "\n Error: La quantité est invalide";
-// }
-// if(!preg_match("/^[0-9]+$/",$order_price))
-
-// {
-//     $errors .= "\n Error: Le montant de la commande est invalide";
-// }
-
 
 if(empty($errors)){
 
@@ -63,7 +46,20 @@ if(empty($errors)){
             $result = mysqli_query($link, $query);
             }
         }
-        header('Location: ../site/enregistrement_commande.php');
+        print("ok");
+
+
+        /* Génération de la facture PDF */
+
+        require_once __DIR__ . '../mpdf/vendor/autoload.php';
+
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML('<h1>Hello world!</h1>');
+        $mpdf->Output();
+
+        // $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp']);
+
+        // header('Location: ../site/enregistrement_commande.php');
     }else
-    print("Il y a eu un problème dans la gestion du stocks");
+    print("nok");
 }
